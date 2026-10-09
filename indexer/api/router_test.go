@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -62,17 +62,17 @@ func TestCORSMiddleware_AllowsConfiguredOrigin(t *testing.T) {
 	})
 
 	req := httptest.NewRequest(http.MethodGet, "/test", nil)
-	req.Header.Set("Origin", "https://trustrove.vercel.app")
+	req.Header.Set("Origin", "http://localhost:3000")
 	rr := httptest.NewRecorder()
 
-	handler := CORSMiddleware([]string{"https://trustrove.vercel.app", "http://localhost:3000"})(next)
+	handler := CORSMiddleware([]string{"http://localhost:3000", "http://localhost:3000"})(next)
 	handler.ServeHTTP(rr, req)
 
 	if rr.Code != http.StatusTeapot {
 		t.Fatalf("expected status %d, got %d", http.StatusTeapot, rr.Code)
 	}
 
-	if got := rr.Header().Get("Access-Control-Allow-Origin"); got != "https://trustrove.vercel.app" {
+	if got := rr.Header().Get("Access-Control-Allow-Origin"); got != "http://localhost:3000" {
 		t.Fatalf("expected allowed origin to be forwarded, got %q", got)
 	}
 }
@@ -86,7 +86,7 @@ func TestCORSMiddleware_RejectsUnlistedOrigin(t *testing.T) {
 	req.Header.Set("Origin", "https://evil.example")
 	rr := httptest.NewRecorder()
 
-	handler := CORSMiddleware([]string{"https://trustrove.vercel.app", "http://localhost:3000"})(next)
+	handler := CORSMiddleware([]string{"http://localhost:3000", "http://localhost:3000"})(next)
 	handler.ServeHTTP(rr, req)
 
 	if rr.Code != http.StatusForbidden {

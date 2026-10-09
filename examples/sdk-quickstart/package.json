@@ -2,13 +2,13 @@
   "name": "sdk-quickstart",
   "version": "0.1.0",
   "private": true,
-  "description": "Minimal runnable example for @trusttrove/sdk against Stellar testnet",
+  "description": "Minimal runnable example for @clearledger/sdk against Stellar testnet",
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "@trusttrove/sdk": "workspace:*"
+    "@clearledger/sdk": "workspace:*"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

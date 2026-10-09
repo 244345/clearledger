@@ -1,6 +1,6 @@
 # Webhook System
 
-The TrusTrove indexer provides a webhook system for external systems to subscribe to real-time event notifications.
+The ClearLedger indexer provides a webhook system for external systems to subscribe to real-time event notifications.
 
 ## Overview
 
@@ -102,12 +102,12 @@ arguments:
 Each webhook delivery is signed with HMAC-SHA256 using the subscription's secret:
 
 ```
-X-TrusTrove-Signature: sha256=<hex_digest>
-X-TrusTrove-Timestamp: <unix_timestamp>
+X-ClearLedger-Signature: sha256=<hex_digest>
+X-ClearLedger-Timestamp: <unix_timestamp>
 ```
 
 - The signature is `HMAC_SHA256(secret, timestamp + "." + body)`, where `body`
-  is the exact request body bytes and `timestamp` is the `X-TrusTrove-Timestamp`
+  is the exact request body bytes and `timestamp` is the `X-ClearLedger-Timestamp`
   header value.
 - The digest is lowercase hex, prefixed with `sha256=`.
 - The timestamp is Unix time in **seconds** at the moment of the attempt. Every
@@ -120,10 +120,10 @@ Verify every request before trusting it:
 
 1. Take the **raw request body bytes**. Don't parse and re-serialize the JSON
    first: re-encoding changes the bytes and the signature won't match.
-2. Reject the request if `X-TrusTrove-Timestamp` is more than 5 minutes away
+2. Reject the request if `X-ClearLedger-Timestamp` is more than 5 minutes away
    from your clock, in either direction.
 3. Recompute `sha256=` + hex(HMAC-SHA256(secret, timestamp + "." + body)) and
-   compare it to `X-TrusTrove-Signature` in constant time.
+   compare it to `X-ClearLedger-Signature` in constant time.
 
 Node.js (Express):
 
@@ -131,10 +131,10 @@ Node.js (Express):
 const crypto = require("node:crypto");
 const express = require("express");
 
-const SECRET = process.env.TRUSTROVE_WEBHOOK_SECRET;
+const SECRET = process.env.CLEARLEDGER_WEBHOOK_SECRET;
 const TOLERANCE_SECONDS = 5 * 60;
 
-function verifyTrusTroveSignature(rawBody, timestamp, signature, secret) {
+function verifyClearLedgerSignature(rawBody, timestamp, signature, secret) {
   if (!/^\d+$/.test(timestamp ?? "")) return false;
   const now = Math.floor(Date.now() / 1000);
   if (Math.abs(now - Number(timestamp)) > TOLERANCE_SECONDS) return false;
@@ -156,13 +156,13 @@ const app = express();
 // express.raw() keeps the exact bytes that were signed. Don't use
 // express.json() on this route: re-serialized JSON won't match the signature.
 app.post(
-  "/webhooks/trustrove",
+  "/webhooks/clearledger",
   express.raw({ type: "application/json" }),
   (req, res) => {
-    const ok = verifyTrusTroveSignature(
+    const ok = verifyClearLedgerSignature(
       req.body,
-      req.get("X-TrusTrove-Timestamp"),
-      req.get("X-TrusTrove-Signature"),
+      req.get("X-ClearLedger-Timestamp"),
+      req.get("X-ClearLedger-Signature"),
       SECRET,
     );
     if (!ok) return res.sendStatus(401);
@@ -182,7 +182,7 @@ own signer as `Example_verifySignature` in
 ```go
 const signatureTolerance = 5 * time.Minute
 
-func verifyTrusTroveSignature(secret string, rawBody []byte, timestamp, signature string, now time.Time) bool {
+func verifyClearLedgerSignature(secret string, rawBody []byte, timestamp, signature string, now time.Time) bool {
 	ts, err := strconv.ParseInt(timestamp, 10, 64)
 	if err != nil {
 		return false
@@ -200,8 +200,8 @@ func verifyTrusTroveSignature(secret string, rawBody []byte, timestamp, signatur
 // In the handler, read the body once and verify those bytes:
 //
 //	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 1<<20))
-//	if err != nil || !verifyTrusTroveSignature(secret, body,
-//		r.Header.Get("X-TrusTrove-Timestamp"), r.Header.Get("X-TrusTrove-Signature"), time.Now()) {
+//	if err != nil || !verifyClearLedgerSignature(secret, body,
+//		r.Header.Get("X-ClearLedger-Timestamp"), r.Header.Get("X-ClearLedger-Signature"), time.Now()) {
 //		http.Error(w, "invalid signature", http.StatusUnauthorized)
 //		return
 //	}

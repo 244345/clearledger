@@ -1,14 +1,10 @@
 # How to Contribute
 
-TrusTrove is open source and actively looking for contributors through the
-Stellar Wave program on Drips.
+ClearLedger is an open-source testnet project. Contributions that improve transaction safety, usability, protocol documentation and developer tooling are welcome.
 
 ### Find an issue
 
-All open issues are on GitHub:
-
-- [TrusTrove-app issues](https://github.com/TrusTrove/TrusTrove-app/issues)
-- [TrusTrove-contract issues](https://github.com/TrusTrove/TrusTrove-contract/issues)
+Start with the issue tracker for the repository you are contributing to. If the change is not tracked yet, open an issue describing the problem and proposed scope before beginning a larger implementation.
 
 Issues are labeled by complexity:
 
@@ -24,7 +20,7 @@ the same issue, only one PR will be merged.
 Follow the local setup guide for the repo you are contributing to:
 
 - [App repo setup](../developer-guide/local-setup.md)
-- [Contracts repo setup](https://github.com/TrusTrove/TrusTrove-contract#quick-start)
+- Contracts repo setup
 
 ### Branch naming
 
@@ -56,5 +52,4 @@ Before opening a PR:
 
 ### Contact
 
-Questions? Reach us on Telegram: **[t.me/trusttrove](https://t.me/trusttrove)**  
-Or open a discussion on GitHub.
+For security concerns, follow the instructions in the repository’s `SECURITY.md`.

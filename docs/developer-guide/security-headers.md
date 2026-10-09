@@ -25,7 +25,7 @@ Always enforced.
 
 **Permissions-Policy notes.** Clipboard is deliberately not restricted: the invoice page copies IDs and share links with `navigator.clipboard.writeText`. `usb` and `hid` are safe to disable because the app never talks to a Ledger directly; hardware wallets are reached through the Freighter extension, which runs in its own context and is not affected by the page's Permissions-Policy. If a feature is ever needed (for example a direct WebHID Ledger integration), remove it from `DISABLED_FEATURES`.
 
-**HSTS notes.** `includeSubDomains` and `preload` are intentionally left out. Both apply beyond this app's own host and are slow to undo, so they are a decision for whoever owns the production domain. On `*.vercel.app` Vercel already sends its own `max-age=63072000; includeSubDomains; preload` (seen on `trustrove.vercel.app`), so the app's header matters for self-hosted and custom-domain deployments.
+**HSTS notes.** `includeSubDomains` and `preload` are intentionally left out. Both apply beyond this app's own host and are slow to undo, so they are a decision for whoever owns the production domain. On `*.vercel.app` Vercel already sends its own `max-age=63072000; includeSubDomains; preload` (seen on Vercel hosted apps), so the app's header matters for self-hosted and custom-domain deployments.
 
 ## Content-Security-Policy
 
@@ -68,7 +68,7 @@ object-src 'none'
 | ----------------------------- | ----------------------------------------------- | ---------------------------------------------------------- |
 | `NEXT_PUBLIC_API_BASE_URL`    | `lib/api.ts` (indexer API)                      | `http://localhost:8080`, the same fallback as `lib/api.ts` |
 | `NEXT_PUBLIC_HORIZON_URL`     | `hooks/useBalances.ts`, `hooks/useTxHistory.ts` | `https://horizon-testnet.stellar.org`                      |
-| `NEXT_PUBLIC_SOROBAN_RPC_URL` | `@trusttrove/sdk`                               | `https://soroban-testnet.stellar.org`                      |
+| `NEXT_PUBLIC_SOROBAN_RPC_URL` | `@clearledger/sdk`                               | `https://soroban-testnet.stellar.org`                      |
 
 Unset vars resolve to the same defaults the code falls back to, because the CSP has to allow whatever the browser will really call.
 

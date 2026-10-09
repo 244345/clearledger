@@ -21,7 +21,7 @@ the same host, port, user, password, and database configured in
 `docker-compose.yml`. The default local URL is:
 
 ```text
-postgresql://postgres:postgres@localhost:5432/trusttrove?sslmode=disable
+postgresql://postgres:postgres@localhost:5432/clearledger?sslmode=disable
 ```
 
 If the indexer reports `failed to ping database`, fix the connection before
@@ -60,7 +60,7 @@ than manually forcing a partially applied migration.
    windows unless explicitly allowed.
 
 After changing extension permissions or networks, reload the page and connect
-again. TrusTrove intentionally does not restore a wallet session from browser
+again. ClearLedger intentionally does not restore a wallet session from browser
 storage after a reload.
 
 ## CORS errors between the frontend and indexer

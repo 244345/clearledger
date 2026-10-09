@@ -14,7 +14,7 @@ import { getErrorMessage } from "@/lib/errors";
 const invoiceContractID = process.env.NEXT_PUBLIC_INVOICE_CONTRACT_ID || "";
 
 const getStellarSdk = () => import("@stellar/stellar-sdk");
-const getTrustroveSdk = () => import("@trusttrove/sdk");
+const getClearLedgerSdk = () => import("@clearledger/sdk");
 
 interface InvoiceFormProps {
   onSuccess?: () => void;
@@ -49,7 +49,7 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
   const [asset, setAsset] = useState<AssetType>("USDC");
   const [dueDate, setDueDate] = useState("");
   const [discountBps, setDiscountBps] = useState(200);
-  const [immediateList, setImmediateList] = useState(true);
+  const [listAtCreation, setListAtCreation] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [isListing, setIsListing] = useState(false);
@@ -141,7 +141,7 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
         throw new Error("Invoice creation did not return a transaction hash");
       }
 
-      if (immediateList) {
+      if (listAtCreation) {
         listingFailed = true;
         setIsListing(true);
 
@@ -151,7 +151,7 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
 
         try {
           const [{ InvoiceClient }, { xdr, nativeToScVal }] = await Promise.all(
-            [getTrustroveSdk(), getStellarSdk()],
+            [getClearLedgerSdk(), getStellarSdk()],
           );
           const invoiceClient = new InvoiceClient(invoiceContractID);
           const args = [
@@ -337,18 +337,21 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
           <div className="flex items-center gap-3 pt-2">
             <input
               type="checkbox"
-              id="immediateList"
+              id="listAtCreation"
               className="rounded bg-[#080c10] border-border text-primary w-5 h-5"
-              checked={immediateList}
-              onChange={(event) => setImmediateList(event.target.checked)}
+              checked={listAtCreation}
+              onChange={(event) => setListAtCreation(event.target.checked)}
             />
             <label
-              htmlFor="immediateList"
+              htmlFor="listAtCreation"
               className="text-xs font-mono text-slate-400 cursor-pointer select-none py-2"
             >
-              List for immediate LP financing at creation
+              List this invoice for financing after creation
             </label>
           </div>
+          <p className="pl-8 text-[11px] leading-5 text-slate-500">
+            Listing makes the invoice available for review; it does not guarantee funding.
+          </p>
 
           {error && (
             <div className="p-3 rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-start gap-2">
@@ -372,7 +375,7 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
                 {parsedValue.toLocaleString()} {asset}
               </span>
             </div>
-            {immediateList && (
+            {listAtCreation && (
               <>
                 <div className="flex justify-between text-rose-400">
                   <span>Discount ({(discountBps / 100).toFixed(2)}%):</span>
@@ -381,7 +384,7 @@ export function InvoiceForm({ onSuccess }: InvoiceFormProps) {
                   </span>
                 </div>
                 <div className="border-t border-border/40 my-2 pt-2 flex justify-between text-emerald-400 font-bold">
-                  <span>Net Payout Today:</span>
+                  <span>Indicative proceeds if funded:</span>
                   <span>
                     {payoutAmount.toLocaleString()} {asset}
                   </span>

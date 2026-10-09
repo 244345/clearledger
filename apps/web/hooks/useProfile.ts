@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { RegistryClient, Profile } from "@trusttrove/sdk";
+import { RegistryClient, Profile } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 import { createErrorHandler } from "@/lib/errors";
 import { useAppError } from "./useAppError";
@@ -46,7 +46,7 @@ function isProfileNotFoundError(error: unknown): boolean {
 }
 
 /**
- * Custom hook for interacting with the TrusTrove registry contract.
+ * Custom hook for interacting with the ClearLedger registry contract.
  *
  * Provides on-chain verification state, profile details, and mutations to
  * register a new issuer or buyer profile.

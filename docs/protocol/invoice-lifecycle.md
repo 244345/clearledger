@@ -1,6 +1,6 @@
 # Invoice Lifecycle
 
-Every invoice in TrusTrove moves through a defined set of states. The smart contract
+Every invoice in ClearLedger moves through a defined set of states. The smart contract
 enforces these transitions — no state can be skipped, and no transition can happen
 out of order.
 

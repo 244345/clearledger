@@ -37,8 +37,8 @@ export async function generateMetadata({
       }).format(new Date(invoice.dueDate * 1000))
     : undefined;
   const title = invoice
-    ? `TrusTrove Invoice #${invoice.id} — ${formatAmount(invoice.faceValue)} USDC`
-    : "TrusTrove Invoice";
+    ? `ClearLedger Invoice #${invoice.id} — ${formatAmount(invoice.faceValue)} USDC`
+    : "ClearLedger Invoice";
   const description = invoice
     ? `Trade finance invoice on Stellar. Status: ${invoice.status}. Due: ${dueDate}.`
     : "Trade finance invoice on Stellar.";
@@ -60,7 +60,7 @@ export async function generateMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: "TrusTrove Invoice preview image",
+          alt: "ClearLedger Invoice preview image",
         },
       ],
     },

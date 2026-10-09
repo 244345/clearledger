@@ -36,7 +36,7 @@ function NotificationPreferences({ address }: { address: string }) {
     "Invoice Defaulted",
   ];
 
-  const storageKey = `trusttrove_prefs_${address}`;
+  const storageKey = `clearledger_prefs_${address}`;
   const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
     try {
       const stored = localStorage.getItem(storageKey);
@@ -136,7 +136,7 @@ export default function ProfilePage() {
       return;
     }
     if (!taxId.trim()) {
-      setLocalError("Tax ID/Registration number is required");
+      setLocalError("Test business reference is required");
       return;
     }
     if (!country.trim()) {
@@ -145,7 +145,7 @@ export default function ProfilePage() {
     }
 
     setPendingText(
-      `Registering business as verified ${regRole === "issuer" ? "SME / Issuer" : "Buyer"}...`,
+      `Registering ${regRole === "issuer" ? "SME / issuer" : "buyer"} profile...`,
     );
     setPendingHash(null);
     setShowPending(true);
@@ -212,7 +212,7 @@ export default function ProfilePage() {
           </h1>
           <p className="text-slate-500 text-xs font-mono mt-1">
             Manage your on-chain corporate credentials and verification states
-            on the TrusTrove Registry contract.
+            on the ClearLedger Registry contract.
           </p>
         </div>
 
@@ -359,7 +359,7 @@ export default function ProfilePage() {
                   No Business Profile Found
                 </h2>
                 <p className="text-xs font-mono text-slate-400 leading-relaxed">
-                  Your connected wallet is not yet registered on the TrusTrove
+                  Your connected wallet is not yet registered on the ClearLedger
                   Registry contract. Register as an SME Issuer to tokenize
                   invoices or as a Buyer to verify and settle them.
                 </p>
@@ -393,8 +393,8 @@ export default function ProfilePage() {
                   className="text-base font-bold font-mono text-white uppercase tracking-wider"
                 >
                   {profile
-                    ? "Update Profile Metadata"
-                    : "Register Corporate Profile"}
+                    ? "Update Public Profile Metadata"
+                    : "Register Business Profile"}
                 </h2>
                 <button
                   type="button"
@@ -404,6 +404,10 @@ export default function ProfilePage() {
                 >
                   ✕
                 </button>
+              </div>
+
+              <div className="rounded-lg border border-amber-500/20 bg-amber-500/10 p-3 text-xs leading-5 text-amber-200">
+                Profile metadata is public on Stellar. Use test data only; do not enter real tax identifiers, personal contact details or confidential business information. Newly registered profiles start unverified and require administrator approval.
               </div>
 
               {localError && (
@@ -448,33 +452,33 @@ export default function ProfilePage() {
 
                 <div className="space-y-2">
                   <label className="text-xs font-mono text-slate-400 uppercase">
-                    Company Name *
+                    Public Business Name (Test Data) *
                   </label>
                   <input
                     type="text"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    placeholder="e.g. Acme Corporation"
+                    placeholder="e.g. Demo Trading Co."
                     className="w-full bg-slate-900 border border-border rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-primary"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-xs font-mono text-slate-400 uppercase">
-                    Tax ID / Registration Number *
+                    Test Business Reference *
                   </label>
                   <input
                     type="text"
                     value={taxId}
                     onChange={(e) => setTaxId(e.target.value)}
-                    placeholder="e.g. REG-123456789"
+                    placeholder="e.g. TEST-12345"
                     className="w-full bg-slate-900 border border-border rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-primary"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-xs font-mono text-slate-400 uppercase">
-                    Country of Incorporation *
+                    Country (Test Data) *
                   </label>
                   <input
                     type="text"
@@ -488,7 +492,7 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-xs font-mono text-slate-400 uppercase">
-                      Website (Optional)
+                      Public Business Website (Optional)
                     </label>
                     <input
                       type="text"
@@ -501,7 +505,7 @@ export default function ProfilePage() {
 
                   <div className="space-y-2">
                     <label className="text-xs font-mono text-slate-400 uppercase">
-                      Email (Optional)
+                      Public Business Email (Optional)
                     </label>
                     <input
                       type="email"

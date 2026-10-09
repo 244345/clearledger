@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/config"
+	"clearledger/indexer/config"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 	"github.com/stellar/go-stellar-sdk/txnbuild"
@@ -213,7 +213,7 @@ func TestHandlePostAuth_ExpiredChallenge(t *testing.T) {
 		Operations: []txnbuild.Operation{
 			&txnbuild.ManageData{
 				SourceAccount: clientKP.Address(),
-				Name:          "trusttrove auth",
+				Name:          "clearledger auth",
 				Value:         []byte("expired-test-nonce"),
 			},
 		},

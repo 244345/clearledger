@@ -14,7 +14,7 @@ import { useNotifications } from "@/hooks/useNotifications";
 import {
   Wallet,
   Shield,
-  Terminal,
+  Landmark,
   ExternalLink,
   Menu,
   X,
@@ -85,10 +85,10 @@ export function Navbar() {
               onClick={closeMobileMenu}
             >
               <div className="bg-primary/10 border border-primary/20 p-2 rounded-lg text-primary shadow-[0_0_10px_rgba(0,212,170,0.1)]">
-                <Terminal className="w-5 h-5" />
+                <Landmark className="w-5 h-5" />
               </div>
-              <span className="font-extrabold text-lg tracking-tight font-mono text-foreground">
-                TRUST<span className="text-primary">TROVE</span>
+              <span className="font-semibold text-lg tracking-tight text-foreground">
+                Clear<span className="text-primary">Ledger</span>
               </span>
             </Link>
 

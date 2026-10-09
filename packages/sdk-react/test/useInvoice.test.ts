@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { InvoiceClient } from "@trusttrove/sdk";
+import { InvoiceClient } from "@clearledger/sdk";
 import {
   useInvoice,
   useInvoicesByStatus,
@@ -17,7 +17,7 @@ const { sharedGet } = vi.hoisted(() => ({
   sharedGet: vi.fn(),
 }));
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockInvoiceClient {
     contractId: string;
     constructor(contractId: string) {

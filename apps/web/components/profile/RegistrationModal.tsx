@@ -25,7 +25,7 @@ export function RegistrationModal({
   const modalRef = useFocusTrap<HTMLDivElement>(isOpen, onClose);
 
   const [regRole, setRegRole] = useState<"issuer" | "buyer">("issuer");
-  const [companyName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [taxId, setTaxId] = useState("");
   const [country, setCountry] = useState("");
   const [website, setWebsite] = useState("");
@@ -50,7 +50,7 @@ export function RegistrationModal({
       return;
     }
     if (!taxId.trim()) {
-      setLocalError("Tax ID/Registration number is required");
+      setLocalError("Test business reference is required");
       return;
     }
     if (!country.trim()) {
@@ -59,7 +59,7 @@ export function RegistrationModal({
     }
 
     setPendingText(
-      `Registering business as verified ${regRole === "issuer" ? "SME / Issuer" : "Buyer"}...`,
+      `Registering ${regRole === "issuer" ? "SME / issuer" : "buyer"} profile...`,
     );
     setPendingHash(null);
     setShowPending(true);
@@ -123,11 +123,10 @@ export function RegistrationModal({
                   className="text-sm font-bold font-mono tracking-wider uppercase text-white flex items-center gap-1.5 pr-16"
                 >
                   <Building2 className="w-4 h-4 text-primary" />
-                  Register Business Metadata
+                  Register Business Profile
                 </h2>
                 <p className="text-[10px] text-slate-500 font-mono mt-0.5">
-                  Input your company credentials. This metadata maps to your
-                  wallet address on-chain.
+                  Profile metadata is permanently public on Stellar. Use test data only; do not enter real tax identifiers, personal contact details or confidential business information.
                 </p>
               </div>
 
@@ -166,18 +165,32 @@ export function RegistrationModal({
                   </div>
                 </div>
 
-                {/* Tax ID & Country */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                    Public business name (test data)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Demo Trading Co."
+                    className="w-full bg-[#080c10] border border-border rounded px-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                    value={companyName}
+                    onChange={(event) => setCompanyName(event.target.value)}
+                  />
+                </div>
+
+                {/* Public test reference and country */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1">
                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                      Tax ID / Registration No.
+                      Test Business Reference
                     </label>
                     <div className="relative">
                       <FileText className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
                       <input
                         type="text"
                         required
-                        placeholder="e.g. EU123456789"
+                        placeholder="e.g. TEST-12345"
                         className="w-full bg-[#080c10] border border-border rounded pl-10 pr-3 py-2 text-white placeholder-slate-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                         value={taxId}
                         onChange={(e) => setTaxId(e.target.value)}
@@ -206,7 +219,7 @@ export function RegistrationModal({
                 {/* Website URL */}
                 <div className="space-y-1">
                   <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                    Corporate Website URL (Optional)
+                    Public Business Website (Optional)
                   </label>
                   <div className="relative">
                     <Globe className="absolute left-3 top-2.5 w-4 h-4 text-slate-500" />
@@ -235,10 +248,9 @@ export function RegistrationModal({
                 <div className="bg-[#080c10] border border-amber-500/20 p-3 rounded text-[10px] text-amber-500 leading-normal flex items-start gap-1.5">
                   <Lock className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                   <span>
-                    Signing this registration requires Freighter authorization.
-                    You will submit a Soroban write transaction, which
-                    whitelists your wallet address and locks your business
-                    credentials.
+                    Freighter will show the transaction for your approval. The
+                    profile starts unverified; the protocol administrator must
+                    verify it before gated actions are available.
                   </span>
                 </div>
 

@@ -21,9 +21,9 @@ function readVersion(): string {
 const program = new Command();
 
 program
-  .name("trusttrove")
+  .name("clearledger")
   .description(
-    "CLI for interacting with TrusTrove Soroban contracts on Stellar",
+    "CLI for interacting with ClearLedger Soroban contracts on Stellar",
   )
   .version(readVersion(), "-v, --version", "output the current version");
 

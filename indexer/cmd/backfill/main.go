@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"trusttrove/indexer/config"
+	"clearledger/indexer/config"
 )
 
 func main() {

@@ -16,8 +16,8 @@ import { Invoice } from "@/types";
 import { formatAmount } from "@/lib/assets";
 import { ShieldAlert, RotateCcw, Save, Trash2, Menu } from "lucide-react";
 
-const MARKETPLACE_FILTERS_KEY = "trusttrove:marketplace:filters";
-const MARKETPLACE_PRESETS_KEY = "trusttrove:marketplace:presets";
+const MARKETPLACE_FILTERS_KEY = "clearledger:marketplace:filters";
+const MARKETPLACE_PRESETS_KEY = "clearledger:marketplace:presets";
 
 interface MarketplaceFilters {
   statusFilter: string;

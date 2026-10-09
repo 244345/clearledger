@@ -51,9 +51,9 @@ jobs:
         run: pnpm test
 
       - name: Lint SDK
-        run: pnpm --filter @trusttrove/sdk lint
+        run: pnpm --filter @clearledger/sdk lint
       - name: SDK coverage (with thresholds)
-        run: pnpm --filter @trusttrove/sdk test:coverage
+        run: pnpm --filter @clearledger/sdk test:coverage
 
       - name: Upload SDK coverage report
         if: always()
@@ -81,7 +81,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: trusttrove_test
+          POSTGRES_DB: clearledger_test
         ports:
           - 5432:5432
         options: >-
@@ -114,7 +114,7 @@ jobs:
           cd indexer
           go test -race -v -coverprofile=coverage.out ./...
         env:
-          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/trusttrove_test?sslmode=disable
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/clearledger_test?sslmode=disable
           INDEXER_MIGRATIONS_DIR: ${{ github.workspace }}/indexer/db/migrations
 
       - name: golangci-lint
@@ -138,7 +138,7 @@ jobs:
           awk -v pct="$pct" 'BEGIN { exit !(pct >= 70) }' \
             || (echo "indexer/db coverage ${pct}% is below the required 70% threshold" && exit 1)
         env:
-          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/trusttrove_test?sslmode=disable
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/clearledger_test?sslmode=disable
           INDEXER_MIGRATIONS_DIR: ${{ github.workspace }}/indexer/db/migrations
 
       - name: Vulnerability scan (govulncheck)

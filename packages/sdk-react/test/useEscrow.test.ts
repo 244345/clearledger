@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { EscrowClient } from "@trusttrove/sdk";
+import { EscrowClient } from "@clearledger/sdk";
 import {
   useLockedAmount,
   useEscrowMutations,
   UseEscrowOptions,
 } from "../src/useEscrow.js";
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockEscrowClient {
     contractId: string;
     constructor(contractId: string) {

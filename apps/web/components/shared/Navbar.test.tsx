@@ -143,13 +143,13 @@ describe("Navbar onboarding tour", () => {
 
   it("relaunches the tour from the Take the tour button", () => {
     // Already seen: the connected wallet must not auto-open it.
-    localStorage.setItem("trusttrove:onboarding-tour-seen", "true");
+    localStorage.setItem("clearledger:onboarding-tour-seen", "true");
     renderNavbar();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Take the tour" }));
     expect(screen.getByRole("dialog")).toHaveAccessibleName(
-      "Welcome to TrusTrove",
+      "Welcome to ClearLedger",
     );
   });
 });

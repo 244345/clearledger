@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
-import { AgentRegistryClient } from "@trusttrove/sdk";
+import { AgentRegistryClient } from "@clearledger/sdk";
 import { useAgent, UseAgentRegistryOptions } from "../src/useAgentRegistry.js";
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockAgentRegistryClient {
     contractId: string;
     constructor(contractId: string) {

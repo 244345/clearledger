@@ -2,7 +2,7 @@ import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useProfile } from "./useProfile";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { RegistryClient } from "@trusttrove/sdk";
+import { RegistryClient } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 
 vi.mock("@tanstack/react-query", () => ({
@@ -11,7 +11,7 @@ vi.mock("@tanstack/react-query", () => ({
   useQueryClient: vi.fn(),
 }));
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   RegistryClient: vi.fn(function () {}),
 }));
 

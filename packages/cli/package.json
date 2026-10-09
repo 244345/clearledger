@@ -1,12 +1,12 @@
 {
-  "name": "@trusttrove/cli",
+  "name": "@clearledger/cli",
   "version": "0.1.0",
-  "description": "CLI for interacting with TrusTrove Soroban contracts on Stellar",
+  "description": "CLI for interacting with ClearLedger Soroban contracts on Stellar",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "trusttrove": "dist/index.js"
+    "clearledger": "dist/index.js"
   },
   "files": [
     "dist"
@@ -20,7 +20,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@trusttrove/sdk": "workspace:*",
+    "@clearledger/sdk": "workspace:*",
     "commander": "^13.1.0"
   },
   "devDependencies": {

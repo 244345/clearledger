@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useInvoiceList, useInvoiceActions, useInvoice } from "./useInvoices";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getInvoices, getInvoiceByID, createInvoice } from "@/lib/api";
-import { InvoiceClient, PoolClient } from "@trusttrove/sdk";
+import { InvoiceClient, PoolClient } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 import * as toast from "@/lib/toast";
 
@@ -19,7 +19,7 @@ vi.mock("@/lib/api", () => ({
   createInvoice: vi.fn(),
 }));
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   InvoiceClient: vi.fn(function () {}),
   PoolClient: vi.fn(function () {}),
 }));

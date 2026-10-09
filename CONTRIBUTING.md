@@ -1,6 +1,6 @@
-# Contributing to TrusTrove
+# Contributing to ClearLedger
 
-Thank you for your interest in contributing to TrusTrove! To maintain code quality, security, and developer alignment across the monorepo, please adhere to the guidelines documented below.
+Thank you for your interest in contributing to ClearLedger! To maintain code quality, security, and developer alignment across the monorepo, please adhere to the guidelines documented below.
 
 ---
 
@@ -30,7 +30,7 @@ Before opening or requesting review of a pull request, confirm the following:
 
 ## Test command coverage
 
-`pnpm build` covers `@trusttrove/sdk`, `@trusttrove/sdk-react`, `@trusttrove/cli`, and `web`. `pnpm test` runs the Vitest suites for those four packages; it does not run Go tests. `pnpm lint` covers SDK and web, while `pnpm typecheck` builds SDK, SDK React, and CLI before checking TypeScript across the workspaces.
+`pnpm build` covers `@clearledger/sdk`, `@clearledger/sdk-react`, `@clearledger/cli`, and `web`. `pnpm test` runs the Vitest suites for those four packages; it does not run Go tests. `pnpm lint` covers SDK and web, while `pnpm typecheck` builds SDK, SDK React, and CLI before checking TypeScript across the workspaces.
 
 Vitest reports `Test Files` and `Tests` (the counts vary by package and checkout). For example:
 
@@ -43,12 +43,12 @@ Vitest reports `Test Files` and `Tests` (the counts vary by package and checkout
    Duration  8.42s
 ```
 
-Go test output uses the module path `trusttrove/indexer` and its package paths. For example:
+Go test output uses the module path `clearledger/indexer` and its package paths. For example:
 
 ```text
 > cd indexer && go test ./...
-ok   trusttrove/indexer/api      0.412s
-ok   trusttrove/indexer/config   0.018s
+ok   clearledger/indexer/api      0.412s
+ok   clearledger/indexer/config   0.018s
 ```
 
 Database integration tests require `TEST_DATABASE_URL`; for Docker Compose use `postgres://postgres:<POSTGRES_PASSWORD>@localhost:5433/postgres?sslmode=disable`. Without that variable, those tests are skipped.
@@ -130,10 +130,10 @@ pnpm test
 pnpm --filter web test
 
 # Run SDK tests only
-pnpm --filter @trusttrove/sdk test
+pnpm --filter @clearledger/sdk test
 ```
 
-> **Note:** `pnpm test` runs the `@trusttrove/sdk`, `@trusttrove/sdk-react`, `@trusttrove/cli`, and web Vitest suites. It does **not** run Go tests.
+> **Note:** `pnpm test` runs the `@clearledger/sdk`, `@clearledger/sdk-react`, `@clearledger/cli`, and web Vitest suites. It does **not** run Go tests.
 
 **Go tests** (indexer, run from the `indexer/` directory):
 

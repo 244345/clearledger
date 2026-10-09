@@ -32,7 +32,7 @@
 | `INDEXER_CONFIRMATION_DEPTH`       | Backend only       | Reorg buffer; ledgers behind tip (0=off) | `3`                                                  |
 | `JWT_SECRET`                       | Backend only       | Secret for JWT signing                   | `your-secret-here`                                   |
 | `JWT_EXPIRY_HOURS`                 | Backend only       | JWT token expiry                         | `24`                                                 |
-| `ALLOWED_ORIGINS`                  | Backend only       | Allowed CORS origins for the indexer API | `https://trustrove.vercel.app,http://localhost:3000` |
+| `ALLOWED_ORIGINS`                  | Backend only       | Allowed CORS origins for the indexer API | `http://localhost:3000` |
 
 > **Note:** `CSP_ENFORCE` is read by the web app's middleware at request time, so it takes effect on restart or redeploy without a rebuild. See [Security Headers](security-headers.md).
 

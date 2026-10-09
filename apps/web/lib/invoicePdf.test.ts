@@ -87,7 +87,7 @@ const fieldValue = (invoice: Invoice, label: string) =>
 describe("invoicePdfFileName", () => {
   it("names the file after the invoice id prefix", () => {
     expect(invoicePdfFileName(makeInvoice())).toBe(
-      "trusttrove-invoice-a1b2c3d4.pdf",
+      "clearledger-invoice-a1b2c3d4.pdf",
     );
   });
 });
@@ -96,7 +96,7 @@ describe("buildInvoicePdfContent", () => {
   it("includes every required invoice field", () => {
     const content = buildInvoicePdfContent(makeInvoice());
 
-    expect(content.title).toBe("TrusTrove Invoice");
+    expect(content.title).toBe("ClearLedger Invoice");
     expect(content.fields.map((field) => field.label)).toEqual([
       "Invoice ID",
       "Status",
@@ -181,7 +181,7 @@ describe("generateInvoicePdf", () => {
     await generateInvoicePdf(makeInvoice());
 
     const text = drawnText();
-    expect(text).toContain("TrusTrove Invoice");
+    expect(text).toContain("ClearLedger Invoice");
     expect(text).toContain("Invoice details");
     expect(text).toContain("Status timeline");
     expect(text).toContain("INVOICE ID");
@@ -195,7 +195,7 @@ describe("generateInvoicePdf", () => {
     expect(text).toContain("REPAID / DEFAULTED");
 
     expect(mockInstances).toHaveLength(1);
-    expect(mockSave).toHaveBeenCalledWith("trusttrove-invoice-a1b2c3d4.pdf");
+    expect(mockSave).toHaveBeenCalledWith("clearledger-invoice-a1b2c3d4.pdf");
   });
 
   it("renders without a connected wallet (no signer/contract access needed)", async () => {

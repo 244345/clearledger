@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-TrusTrove is currently in active development and deployed on Stellar testnet only.
+ClearLedger is currently in active development and deployed on Stellar testnet only.
 No mainnet deployment exists. Smart contracts have not undergone a formal audit.
 
 | Version         | Supported       |
@@ -12,12 +12,12 @@ No mainnet deployment exists. Smart contracts have not undergone a formal audit.
 
 ## Scope
 
-TrusTrove is split across two repositories, each with its own security scope:
+ClearLedger is split across two repositories, each with its own security scope:
 
-- **This repository ([TrusTrove-app](https://github.com/Maxwell316/TrusTrove-app))**
+- **This repository (ClearLedger-app)**
   covers the web frontend (`apps/web`), the indexer/API (`indexer/`), and the
   SDK (`packages/sdk`).
-- **[TrusTrove-contract](https://github.com/Maxwell316/TrusTrove-contract)**
+- **ClearLedger-contract**
   covers the Soroban smart contracts (registry, invoice, escrow, pool).
   Report smart contract vulnerabilities there — see that repository's
   `SECURITY.md` for its reporting process.
@@ -31,7 +31,7 @@ The following are in scope for security reports in this repository:
 
 The following are out of scope for this repository:
 
-- Smart contract logic errors — report to [TrusTrove-contract](https://github.com/Maxwell316/TrusTrove-contract)
+- Smart contract logic errors — report to ClearLedger-contract
 - Stellar protocol-level issues (report to SDF directly)
 - Freighter wallet vulnerabilities (report to Freighter team)
 - Testnet-only issues with no mainnet impact path
@@ -41,9 +41,7 @@ The following are out of scope for this repository:
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 
-Report vulnerabilities by emailing: **security@trusttrove.xyz**
-(If this address is not yet active, open a private GitHub Security Advisory
-via the Security tab on this repository.)
+Report vulnerabilities through the private reporting option in this repository’s Security tab.
 
 Include in your report:
 
@@ -63,7 +61,7 @@ Include in your report:
 
 ## Disclosure Policy
 
-TrusTrove follows coordinated disclosure. We ask that you give us reasonable
+ClearLedger follows coordinated disclosure. We ask that you give us reasonable
 time to assess and address a vulnerability before public disclosure.
 
 We will credit researchers who report valid vulnerabilities in our changelog
@@ -71,12 +69,12 @@ unless they prefer to remain anonymous.
 
 ## Audit Status
 
-The [TrusTrove-contract](https://github.com/Maxwell316/TrusTrove-contract)
+The ClearLedger-contract
 smart contracts have not been formally audited.
 Users interact with testnet contracts at their own risk.
 A security audit is planned prior to any mainnet deployment.
 
 ## Important Notice
 
-TrusTrove is experimental software. Do not deposit real funds.
+ClearLedger is experimental software. Do not deposit real funds.
 All contracts operate on Stellar testnet with test USDC only.

@@ -1,4 +1,4 @@
-module trusttrove/indexer
+module clearledger/indexer
 
 go 1.25.0
 

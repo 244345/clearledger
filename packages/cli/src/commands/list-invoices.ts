@@ -4,7 +4,7 @@ import {
   toUsdc,
   type Invoice,
   type InvoiceStatus,
-} from "@trusttrove/sdk";
+} from "@clearledger/sdk";
 
 /**
  * Every on-chain invoice status, in lifecycle order. `--status` accepts these
@@ -22,7 +22,7 @@ export const INVOICE_STATUSES: InvoiceStatus[] = [
 ];
 
 /** Env var that can stand in for `--public-key`. */
-export const PUBLIC_KEY_ENV_VAR = "TRUSTTROVE_PUBLIC_KEY";
+export const PUBLIC_KEY_ENV_VAR = "CLEARLEDGER_PUBLIC_KEY";
 
 /** Env var that can stand in for `--contract-id` (see .env.example). */
 export const CONTRACT_ID_ENV_VAR = "INVOICE_CONTRACT_ID";
@@ -211,7 +211,7 @@ export async function listInvoices(
 }
 
 /**
- * Registers `trusttrove list-invoices` on the CLI's command router.
+ * Registers `clearledger list-invoices` on the CLI's command router.
  *
  * Output goes to stdout as a formatted table; configuration and simulation
  * failures are reported on stderr with a non-zero exit code.

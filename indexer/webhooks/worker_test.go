@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 )
 
 // fakeDelivery builds an in-memory claimed row. The worker only reads these
@@ -223,8 +223,8 @@ func TestAttemptDelivery2xx(t *testing.T) {
 	)
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		gotMethod = r.Method
-		gotSig = r.Header.Get("X-TrusTrove-Signature")
-		gotTS = r.Header.Get("X-TrusTrove-Timestamp")
+		gotSig = r.Header.Get("X-ClearLedger-Signature")
+		gotTS = r.Header.Get("X-ClearLedger-Timestamp")
 		gotCT = r.Header.Get("Content-Type")
 		gotBody, _ = io.ReadAll(r.Body)
 		w.WriteHeader(http.StatusOK)
@@ -243,8 +243,8 @@ func TestAttemptDelivery2xx(t *testing.T) {
 		t.Fatalf("build request: %v", err)
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("X-TrusTrove-Timestamp", ts)
-	req.Header.Set("X-TrusTrove-Signature", "sha256="+sig)
+	req.Header.Set("X-ClearLedger-Timestamp", ts)
+	req.Header.Set("X-ClearLedger-Signature", "sha256="+sig)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -307,8 +307,8 @@ func TestAttemptDeliveryNon2xx(t *testing.T) {
 				t.Fatalf("build request: %v", err)
 			}
 			req.Header.Set("Content-Type", "application/json")
-			req.Header.Set("X-TrusTrove-Timestamp", ts)
-			req.Header.Set("X-TrusTrove-Signature", "sha256="+sig)
+			req.Header.Set("X-ClearLedger-Timestamp", ts)
+			req.Header.Set("X-ClearLedger-Signature", "sha256="+sig)
 
 			resp, err := http.DefaultClient.Do(req)
 			if err != nil {

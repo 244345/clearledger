@@ -312,7 +312,7 @@ export async function fetchPage(
  * Custom hook for fetching paginated transaction history from the Stellar Horizon API.
  *
  * Queries transactions for the given account address, filtering to only those
- * involving known TrusTrove contracts (Registry, Invoice, Pool, Escrow).
+ * involving known ClearLedger contracts (Registry, Invoice, Pool, Escrow).
  * Supports client-side pagination with a cursor stack.
  *
  * @param address - Stellar account address to fetch transaction history for.

@@ -22,15 +22,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TrusTrove | Decentralized Trade Finance Operations Terminal",
+  title: "ClearLedger | Invoice Finance for Trade",
   description:
-    "Tokenize unpaid trade invoices as Stellar assets and receive immediate USDC funding. Yield opportunities for liquidity providers.",
+    "ClearLedger coordinates SMEs, their buyers and USDC liquidity providers through an on-chain invoice lifecycle on Stellar.",
   // PWA installability: the manifest and icons live in `public/`.
   manifest: "/manifest.webmanifest",
-  applicationName: "TrusTrove",
+  applicationName: "ClearLedger",
   appleWebApp: {
     capable: true,
-    title: "TrusTrove",
+    title: "ClearLedger",
     statusBarStyle: "black-translucent",
   },
   icons: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 // Next 14 moved `themeColor` from `metadata` to the `viewport` export.
 // Matches the dark `--background` token and the manifest's `theme_color`.
 export const viewport: Viewport = {
-  themeColor: "#080c10",
+  themeColor: "#102536",
 };
 
 export default function RootLayout({

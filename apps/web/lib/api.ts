@@ -101,7 +101,7 @@ function initApiClientWithToken(): void {
 export { initApiClientWithToken };
 
 /**
- * Low-level helper that performs an authenticated `fetch` against the TrusTrove
+ * Low-level helper that performs an authenticated `fetch` against the ClearLedger
  * API. It injects the current wallet token as a Bearer header, sets a JSON
  * `Content-Type` for POST/PUT requests, and normalizes error responses
  * (including friendly messages for 503/504 outages).

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockGetStats = vi.hoisted(() => vi.fn());
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   PoolClient: class {
     contractId: string;
 
@@ -86,7 +86,7 @@ describe("checkPoolBalanceCommand", () => {
     });
 
     expect(errorSpy).toHaveBeenCalledWith(
-      "Missing public key. Provide --public-key or set TRUSTTROVE_PUBLIC_KEY.",
+      "Missing public key. Provide --public-key or set CLEARLEDGER_PUBLIC_KEY.",
     );
     expect(mockGetStats).not.toHaveBeenCalled();
     expect(process.exitCode).toBe(1);

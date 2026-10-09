@@ -1,67 +1,31 @@
 # How It Works
 
-TrusTrove runs on four Soroban smart contracts deployed on Stellar. Here is the complete
-flow from invoice creation to repayment.
+ClearLedger coordinates invoice finance across registry, invoice, pool and escrow contracts on Stellar Soroban. The current application is a testnet prototype.
 
-### Step 1 — Register
+### 1. Register participants
 
-Before creating an invoice, both the SME (issuer) and the buyer must be registered in
-the registry contract. Registration verifies that both parties have agreed to participate
-in the protocol. This is a one-time step.
+An SME issuer and its buyer register profiles in the registry. Registration records a profile; a designated protocol administrator must separately mark it verified before gated actions are available.
 
-### Step 2 — Create the invoice
+### 2. Create and assess an invoice
 
-The SME calls `invoice_contract.create()` with four pieces of information:
+The SME records the buyer, face value and due date. The invoice is submitted for the required assessment before it can be listed. Contract state tracks the invoice and its lifecycle.
 
-- Buyer address
-- Face value in USDC
-- Due date
+### 3. List for financing
 
-The contract generates a unique invoice ID and stores the invoice on-chain with status
-`Created`. Nothing moves at this point.
+The SME sets a discount in basis points (200 bps = 2%) and lists the invoice. Listing does not guarantee that it will be funded.
 
-### Step 3 — List for financing
+### 4. Fund when eligible
 
-The SME calls `list_for_financing()` and sets a discount rate in basis points.
-200 basis points = 2%. This is the cost of getting paid early. Status changes to `Listed`.
+A listed invoice may be funded from its configured pool if it satisfies the protocol rules and liquidity is available. The pool calculates the financing amount from the face value and discount. Escrow coordinates the transfer to the SME.
 
-### Step 4 — Pool funds the invoice
+### 5. Confirm delivery
 
-A liquidity provider — or the pool itself on behalf of LPs — calls `fund_invoice()`.
-The pool calculates the funded amount:
+After goods or services are delivered, the issuer marks the invoice as shipped. The issuer and buyer record the required delivery confirmations before repayment.
 
-```
-funded_amount = face_value × (1 - discount_bps / 10000)
-```
+### 6. Repay
 
-At 2% discount on a $10,000 invoice, the funded amount is $9,800.
+The buyer repays the invoice face value in USDC. The contracts update invoice and pool state according to protocol rules. The discount may contribute to pool returns, but repayment and returns are not guaranteed.
 
-The pool sends $9,800 USDC to the escrow contract, which immediately releases it to
-the SME. Invoice status changes to `Funded`.
+### Default risk
 
-### Step 5 — Ship and confirm
-
-The SME ships the goods and calls `mark_shipped()`. Status changes to `Active`.
-
-Both the SME and the buyer must call `confirm_delivery()`. The contract requires both
-confirmations before moving forward — one party cannot claim delivery unilaterally.
-Once both confirm, status changes to `Confirmed`.
-
-### Step 6 — Repay
-
-The buyer calls `repay()`, which transfers the full face value ($10,000) from their
-wallet to the pool contract. Status changes to `Repaid`.
-
-The pool collects $10,000, having paid out $9,800. The $200 difference distributes
-as yield across LP shares, increasing the share price for all LPs proportionally.
-
-### What happens on default
-
-If the due date passes without repayment, anyone can call `trigger_default()`.
-Because the funded amount was already released to the SME at funding time,
-escrow holds nothing for the invoice and the pool recovers nothing. The pool
-writes down the full funded amount, which reduces share value for all LPs —
-a principal loss, not just lost yield. See
-[Default risk](./../protocol/economic-model.md#default-risk) for a worked example.
-
-Default risk is real. LPs accept it when they deposit.
+If an invoice is not repaid, the pool may lose the funded amount. See [default risk](../protocol/economic-model.md#default-risk) for the contract accounting and examples. The contracts have not been formally audited; use testnet assets only.

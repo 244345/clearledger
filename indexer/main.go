@@ -13,12 +13,12 @@ import (
 
 	"github.com/getsentry/sentry-go"
 
-	"trusttrove/indexer/api"
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/listener"
-	"trusttrove/indexer/webhook"
-	"trusttrove/indexer/webhooks"
+	"clearledger/indexer/api"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
+	"clearledger/indexer/listener"
+	"clearledger/indexer/webhook"
+	"clearledger/indexer/webhooks"
 )
 
 // Process exit statuses. Orchestrators configured with Docker's
@@ -81,7 +81,7 @@ func run() int {
 	}))
 	slog.SetDefault(logger)
 
-	slog.Info("Starting TrusTrove Indexer and API server...")
+	slog.Info("Starting ClearLedger Indexer and API server...")
 
 	// 1. Load Configuration
 	cfg, err := config.LoadConfig()
@@ -243,6 +243,6 @@ func run() int {
 	code := exitCodeFor(cause)
 	shutdown(cause)
 
-	slog.Info("TrusTrove Indexer and API server stopped.", "exitCode", code)
+	slog.Info("ClearLedger Indexer and API server stopped.", "exitCode", code)
 	return code
 }

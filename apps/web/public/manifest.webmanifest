@@ -1,14 +1,14 @@
 {
-  "name": "TrusTrove | Decentralized Trade Finance",
-  "short_name": "TrusTrove",
-  "description": "Tokenize unpaid trade invoices as Stellar assets and receive immediate USDC funding. Yield opportunities for liquidity providers.",
+  "name": "ClearLedger | Invoice Finance for Trade",
+  "short_name": "ClearLedger",
+  "description": "Stellar testnet invoice finance for SMEs, trade buyers and USDC liquidity providers.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#080c10",
-  "background_color": "#080c10",
+  "theme_color": "#102536",
+  "background_color": "#102536",
   "categories": ["finance", "business"],
   "icons": [
     {

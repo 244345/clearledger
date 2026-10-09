@@ -1,9 +1,9 @@
-# TrusTrove web app container image.
+# ClearLedger web app container image.
 #
 # Build context is the repository root (the pnpm workspace root) so the build
-# can resolve workspace packages (notably @trusttrove/sdk):
+# can resolve workspace packages (notably @clearledger/sdk):
 #
-#   docker build -f apps/web/Dockerfile -t trusttrove-web .
+#   docker build -f apps/web/Dockerfile -t clearledger-web .
 #
 # NEXT_PUBLIC_* values are inlined into the web client bundle at build time, so
 # they are passed as build args (defaults mirror .env.example). Server-side API
@@ -67,7 +67,7 @@ ENV NEXT_PUBLIC_STELLAR_NETWORK=$NEXT_PUBLIC_STELLAR_NETWORK \
     NEXT_PUBLIC_USDC_ASSET_CODE=$NEXT_PUBLIC_USDC_ASSET_CODE \
     NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
 
-RUN pnpm --filter @trusttrove/sdk build && pnpm --filter web build
+RUN pnpm --filter @clearledger/sdk build && pnpm --filter web build
 
 # ---------- runner: standalone server output only ----------
 FROM node:20-alpine AS runner

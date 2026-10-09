@@ -1,26 +1,52 @@
-# TrusTrove
+# ClearLedger
 
-## Tech Stack
+**Invoice finance infrastructure for businesses, trade buyers and liquidity providers.**
 
-- **Web application:** Next.js app in `apps/web`.
-- **TypeScript SDK:** `@trusttrove/sdk` in `packages/sdk`, with contract client wrappers.
-- **React package:** `@trusttrove/sdk-react` in `packages/sdk-react`, with React hooks and providers.
-- **CLI:** `@trusttrove/cli` in `packages/cli`.
-- **Examples:** Runnable integrations and SDK usage in `examples/`.
-- **Indexer and API:** Go service in `indexer/`.
+ClearLedger is an open-source Stellar testnet prototype that coordinates the key steps of invoice finance in one on-chain workflow. SMEs record trade invoices, buyers confirm delivery and settle obligations, and liquidity providers can review invoice terms before supplying USDC to a shared pool.
 
-## Local Setup
+## What the protocol does
 
-Run `docker-compose up` to start the one-command stack.
+- Registers SME issuers and trade buyers, with protocol verification required before gated actions.
+- Records invoice terms and lifecycle changes, including listing, financing, delivery confirmation and repayment.
+- Coordinates pool accounting and invoice settlement through Soroban contracts for registry, invoice, pool and escrow functions.
+- Provides a web application, TypeScript SDKs and CLI, Go event indexer/API, and integration examples.
+
+The protocol records transaction state; it does not verify off-chain commercial documents by itself or guarantee that an invoice will be funded or repaid.
+
+## Project status
+
+This repository is a public testnet prototype, not a production financial service. The contracts have not been formally audited. Testnet assets have no promised redemption value. Invoice defaults, limited withdrawal liquidity, software defects and smart contract failures can result in loss. Do not use real funds.
+
+## Run locally
+
+Requirements: Node.js 20+, pnpm 9+, Docker, and Freighter configured for Stellar Testnet.
+
+```bash
+pnpm install
+cp .env.example .env.local
+pnpm dev
+```
+
+The web app runs at `http://localhost:3000`. To run the web app, indexer and PostgreSQL together:
+
+```bash
+cp .env.docker.example .env.docker
+docker compose --env-file .env.docker up --build
+```
+
+Use testnet wallets and assets only. Keep private keys and recovery phrases out of environment files and source control.
 
 ## Repository layout
 
-- `apps/web` — Next.js web application
-- `indexer` — Go Soroban event indexer and HTTP API
-- `packages/sdk` — TypeScript SDK
-- `packages/sdk-react` — React hooks and providers
-- `packages/cli` — command-line tools
-- `examples` — integration examples
-- `docs` — developer and operational documentation
+- `apps/web/` — Next.js application
+- `packages/sdk/`, `packages/sdk-react/` — TypeScript contract clients and React hooks
+- `packages/cli/` — command-line interface
+- `indexer/` — Go Soroban event indexer and HTTP API
+- `examples/` — SDK and integration examples
+- `docs/` — protocol, user and developer documentation
 
-Root command coverage: `pnpm build` builds SDK, SDK React, CLI, and web; `pnpm test` runs Vitest suites for those four packages; `pnpm lint` runs SDK and web lint; and `pnpm typecheck` builds SDK, SDK React, and CLI before checking TypeScript across the workspaces. Run `go build -v .`, `go vet ./...`, and `go test ./...` separately from `indexer`.
+Soroban contract source is maintained in the companion contracts repository.
+
+## Development and contribution
+
+See [local setup](docs/developer-guide/local-setup.md), [architecture](docs/ARCHITECTURE.md), and [contribution guidance](docs/contributing/how-to-contribute.md). Core checks include `pnpm build`, `pnpm lint`, `pnpm typecheck`, and `pnpm test`; run Go checks from `indexer/` with `go test ./...` and `go vet ./...`.

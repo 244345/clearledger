@@ -9,12 +9,12 @@ import (
 	"time"
 )
 
-// verifyTrusTroveSignature is the receiver-side check published in
+// verifyClearLedgerSignature is the receiver-side check published in
 // docs/webhooks.md ("Verifying signatures"). Keep the two copies identical;
 // Example_verifySignature runs it against the worker's own signer.
 const signatureTolerance = 5 * time.Minute
 
-func verifyTrusTroveSignature(secret string, rawBody []byte, timestamp, signature string, now time.Time) bool {
+func verifyClearLedgerSignature(secret string, rawBody []byte, timestamp, signature string, now time.Time) bool {
 	ts, err := strconv.ParseInt(timestamp, 10, 64)
 	if err != nil {
 		return false
@@ -35,15 +35,15 @@ func Example_verifySignature() {
 	timestamp := "1790763125"
 	sentAt := time.Unix(1790763125, 0)
 
-	// Exactly what attemptDelivery puts in X-TrusTrove-Signature.
+	// Exactly what attemptDelivery puts in X-ClearLedger-Signature.
 	signature := "sha256=" + sign(secret, timestamp, body)
 
-	fmt.Println("valid:", verifyTrusTroveSignature(secret, body, timestamp, signature, sentAt))
-	fmt.Println("5 minutes later:", verifyTrusTroveSignature(secret, body, timestamp, signature, sentAt.Add(5*time.Minute)))
-	fmt.Println("stale:", verifyTrusTroveSignature(secret, body, timestamp, signature, sentAt.Add(5*time.Minute+time.Second)))
-	fmt.Println("from the future:", verifyTrusTroveSignature(secret, body, timestamp, signature, sentAt.Add(-5*time.Minute-time.Second)))
-	fmt.Println("tampered body:", verifyTrusTroveSignature(secret, append([]byte(" "), body...), timestamp, signature, sentAt))
-	fmt.Println("wrong secret:", verifyTrusTroveSignature("whsec_other", body, timestamp, signature, sentAt))
+	fmt.Println("valid:", verifyClearLedgerSignature(secret, body, timestamp, signature, sentAt))
+	fmt.Println("5 minutes later:", verifyClearLedgerSignature(secret, body, timestamp, signature, sentAt.Add(5*time.Minute)))
+	fmt.Println("stale:", verifyClearLedgerSignature(secret, body, timestamp, signature, sentAt.Add(5*time.Minute+time.Second)))
+	fmt.Println("from the future:", verifyClearLedgerSignature(secret, body, timestamp, signature, sentAt.Add(-5*time.Minute-time.Second)))
+	fmt.Println("tampered body:", verifyClearLedgerSignature(secret, append([]byte(" "), body...), timestamp, signature, sentAt))
+	fmt.Println("wrong secret:", verifyClearLedgerSignature("whsec_other", body, timestamp, signature, sentAt))
 	// Output:
 	// valid: true
 	// 5 minutes later: true

@@ -1,4 +1,4 @@
-import { invoiceSchema } from "@trusttrove/sdk";
+import { invoiceSchema } from "@clearledger/sdk";
 import type { Invoice, AssetType } from "@/types";
 
 type RawInvoice = Record<string, unknown>;

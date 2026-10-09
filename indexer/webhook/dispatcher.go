@@ -18,8 +18,8 @@ import (
 	"log/slog"
 	"time"
 
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/webhooks"
+	"clearledger/indexer/db"
+	"clearledger/indexer/webhooks"
 )
 
 // Dispatcher converts listener events into webhook payload envelopes and

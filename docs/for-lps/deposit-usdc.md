@@ -1,7 +1,7 @@
 # Deposit USDC
 
 From the Liquidity Provider Portal
-([trustrove.vercel.app/lp](https://trustrove.vercel.app/lp)), connect your
+(the local app), connect your
 Freighter wallet and find the **Deposit USDC** form.
 
 ### Step 1 — Enter deposit amount

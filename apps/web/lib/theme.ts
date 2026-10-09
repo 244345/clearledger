@@ -12,7 +12,7 @@
 export type Theme = "light" | "dark";
 
 /** `localStorage` key holding the user's explicit choice, if they made one. */
-export const THEME_STORAGE_KEY = "trusttrove:theme";
+export const THEME_STORAGE_KEY = "clearledger:theme";
 
 /**
  * Theme rendered by the server in `apps/web/app/layout.tsx`. The bootstrap

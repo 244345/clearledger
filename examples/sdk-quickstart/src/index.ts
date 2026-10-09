@@ -3,9 +3,9 @@ import {
   RegistryClient,
   PoolClient,
   InvoiceClient,
-} from "@trusttrove/sdk";
+} from "@clearledger/sdk";
 
-// Testnet contract addresses deployed for TrusTrove — see
+// Testnet contract addresses deployed for ClearLedger — see
 // docs/smart-contracts/overview.md. Override any of these via env vars, e.g.
 //   HORIZON_URL=... SOROBAN_RPC_URL=... pnpm start
 const HORIZON_URL =

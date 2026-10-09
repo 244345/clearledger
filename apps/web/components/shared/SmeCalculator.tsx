@@ -6,7 +6,7 @@ import { AnimatedValue } from "./DiscountCalculator";
 
 /**
  * Derived SME figures, memoized on their actual inputs so an unrelated state
- * change (e.g. payment terms) does not recompute them or restart the
+ * change does not recompute them or restart the
  * `AnimatedValue` loops bound to them (#662).
  */
 export function useSmeDerivedValues(faceValue: number, discountRate: number) {
@@ -18,7 +18,6 @@ export function useSmeDerivedValues(faceValue: number, discountRate: number) {
 
 export function SmeCalculator() {
   const [faceValue, setFaceValue] = useState<number>(50000);
-  const [paymentTerms, setPaymentTerms] = useState<number>(60);
   const [discountRate, setDiscountRate] = useState<number>(2.0);
 
   const { discountPaid, fundedAmount } = useSmeDerivedValues(
@@ -29,13 +28,6 @@ export function SmeCalculator() {
   const handleFaceValueChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFaceValue(parseInt(e.target.value));
-    },
-    [],
-  );
-
-  const handlePaymentTermsChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setPaymentTerms(parseInt(e.target.value));
     },
     [],
   );
@@ -84,22 +76,6 @@ export function SmeCalculator() {
           </div>
         </div>
 
-        {/* Dropdown: Payment Terms */}
-        <div className="space-y-2">
-          <label className="block text-xs font-mono text-slate-400">
-            Payment Due Terms
-          </label>
-          <select
-            value={paymentTerms}
-            onChange={handlePaymentTermsChange}
-            className="w-full bg-[#080c10] border border-border rounded px-3 py-2 text-slate-200 font-mono text-xs focus:outline-none focus:border-primary"
-          >
-            <option value="30">Net 30 (30 days maturity)</option>
-            <option value="60">Net 60 (60 days maturity)</option>
-            <option value="90">Net 90 (90 days maturity)</option>
-          </select>
-        </div>
-
         {/* Slider 2: Discount Rate */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-mono">
@@ -130,108 +106,23 @@ export function SmeCalculator() {
       </div>
 
       {/* Outputs Column */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Without TrusTrove */}
-        <div className="bg-[#080c10] border border-border p-4 rounded-lg flex flex-col justify-between">
-          <div>
-            <div className="text-[10px] font-bold font-mono text-slate-500 uppercase tracking-wider mb-3">
-              Without TrusTrove
-            </div>
-            <div className="space-y-4">
-              <div>
-                <span className="text-[10px] text-slate-500 font-mono block">
-                  You wait:
-                </span>
-                <span className="text-lg font-bold font-mono text-amber-500">
-                  {paymentTerms} Days
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 font-mono block">
-                  You receive:
-                </span>
-                <span className="text-md font-bold text-slate-300 font-mono">
-                  {faceValue.toLocaleString()} USDC
-                </span>
-                <span className="text-[9px] text-slate-600 block leading-tight mt-1">
-                  Full payment received late, freezing working capital.
-                </span>
-              </div>
-            </div>
+      <div className="space-y-4">
+        <div className="rounded-lg border border-primary/20 bg-[#080c10] p-4">
+          <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-primary">Illustrative financing amount</p>
+          <p className="mt-3 font-mono text-2xl font-semibold text-white"><AnimatedValue value={fundedAmount} suffix=" USDC" /></p>
+          <p className="mt-2 text-xs leading-5 text-slate-400">Calculated as invoice face value less the selected discount. Actual eligibility, approved terms, timing and funding depend on verification, underwriting and pool liquidity.</p>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-lg border border-border bg-[#080c10] p-4">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Illustrative discount</p>
+            <p className="mt-2 font-mono text-base font-semibold text-white"><AnimatedValue value={discountPaid} suffix=" USDC" /></p>
           </div>
-
-          <div className="border-t border-border/30 pt-3 mt-4 text-[10px] font-mono space-y-1.5 text-slate-500">
-            <div className="flex justify-between">
-              <span>Opportunity cost:</span>
-              <span className="text-slate-400 text-right">
-                Lost production orders
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span>Bank alternative:</span>
-              <span className="text-slate-400 text-right">
-                8–15% APR, 3-week wait
-              </span>
-            </div>
+          <div className="rounded-lg border border-border bg-[#080c10] p-4">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Buyer obligation</p>
+            <p className="mt-2 font-mono text-base font-semibold text-white">{faceValue.toLocaleString()} USDC</p>
           </div>
         </div>
-
-        {/* With TrusTrove */}
-        <div className="bg-[#080c10] border border-primary/20 p-4 rounded-lg flex flex-col justify-between shadow-[inset_0_0_15px_rgba(0,212,170,0.02)]">
-          <div>
-            <div className="text-[10px] font-bold font-mono text-primary uppercase tracking-wider mb-3">
-              With TrusTrove
-            </div>
-            <div className="space-y-4">
-              <div>
-                <span className="text-[10px] text-slate-500 font-mono block">
-                  You wait:
-                </span>
-                <span className="text-lg font-bold font-mono text-primary">
-                  0 Days (Instant)
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] text-slate-500 font-mono block">
-                  You receive today:
-                </span>
-                <span className="text-md font-bold text-emerald-400 font-mono">
-                  <AnimatedValue value={fundedAmount} suffix=" USDC" />
-                </span>
-                <span className="text-[9px] text-slate-500 block leading-tight mt-1">
-                  Face Value minus{" "}
-                  <AnimatedValue
-                    value={discountPaid}
-                    prefix="-"
-                    suffix=" USDC"
-                  />{" "}
-                  discount fee.
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-border/30 pt-3 mt-4 text-[10px] font-mono space-y-1.5 text-slate-500">
-            <div className="flex justify-between">
-              <span>Discount paid:</span>
-              <span className="text-slate-300 font-bold">
-                <AnimatedValue value={discountPaid} suffix=" USDC" />
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span>Yield distributed:</span>
-              <span className="text-primary font-bold">
-                <AnimatedValue value={discountPaid} suffix=" USDC" />
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span>Buyer obligation:</span>
-              <span className="text-slate-300">
-                {faceValue.toLocaleString()} USDC
-              </span>
-            </div>
-          </div>
-        </div>
+        <p className="text-[10px] leading-5 text-slate-500">Example only. The discount is not necessarily the LP’s net return; protocol fees, early repayment and invoice performance affect realized outcomes.</p>
       </div>
     </div>
   );

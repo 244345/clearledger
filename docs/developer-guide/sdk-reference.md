@@ -1,7 +1,7 @@
 # SDK Reference
 
 The TypeScript SDK in `packages/sdk` wraps all Soroban contract calls.
-Import from `@trusttrove/sdk` in the monorepo or use the workspace package.
+Import from `@clearledger/sdk` in the monorepo or use the workspace package.
 
 ## Runnable example
 
@@ -17,7 +17,7 @@ Import from `@trusttrove/sdk` in the monorepo or use the workspace package.
 ## Setup
 
 ```typescript
-import { configureSDK } from "@trusttrove/sdk";
+import { configureSDK } from "@clearledger/sdk";
 
 configureSDK({
   sorobanRpcUrl: "https://soroban-testnet.stellar.org",
@@ -42,7 +42,7 @@ import {
   EscrowClient,
   TokenClient,
   AgentRegistryClient,
-} from "@trusttrove/sdk";
+} from "@clearledger/sdk";
 
 const registry = new RegistryClient(
   process.env.NEXT_PUBLIC_REGISTRY_CONTRACT_ID!,
@@ -52,7 +52,7 @@ const pool = new PoolClient(process.env.NEXT_PUBLIC_POOL_CONTRACT_ID!);
 const escrow = new EscrowClient(process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID!);
 const usdc = TokenClient.forUSDC();
 // AgentRegistryClient targets the external Underwrite agent-registry contract
-// (deployed from the separate `underwrite-contract` repo), not TrusTrove's own
+// (deployed from the separate `underwrite-contract` repo), not ClearLedger's own
 // issuer/buyer registry. Its contract ID comes from the Underwrite deployment.
 const agents = new AgentRegistryClient(
   process.env.NEXT_PUBLIC_AGENT_REGISTRY_CONTRACT_ID!,
@@ -97,13 +97,13 @@ await registry.revoke(publicKey, signerPublicKey);
 
 `AgentRegistryClient` (`packages/sdk/src/clients/agentRegistry.ts`) reads from
 Underwrite's external **agent-registry** contract (deployed from the separate
-`underwrite-contract` repo) — not TrusTrove's own issuer/buyer `RegistryClient`.
+`underwrite-contract` repo) — not ClearLedger's own issuer/buyer `RegistryClient`.
 This is the client to use when inspecting the Underwrite agent that attested an
 invoice via `invoice_contract.submit_attestation`: the invoice's
 `attestationAgentId` field gives you the `agentId` to look up here.
 
 ```typescript
-import { AgentRegistryClient } from "@trusttrove/sdk";
+import { AgentRegistryClient } from "@clearledger/sdk";
 
 const agents = new AgentRegistryClient(
   process.env.NEXT_PUBLIC_AGENT_REGISTRY_CONTRACT_ID!,
@@ -246,7 +246,7 @@ await pool.receiveRepayment(invoiceIdHex, repaymentAmount, signerPublicKey);
 `TokenClient` wraps the USDC Stellar Asset Contract (SAC) allowance methods. USDC deposits and repayments call `transfer_from` through the pool or invoice contract, so the spender must be approved before the financial operation is submitted. The web app's `useTokenAllowance` hook performs this check automatically.
 
 ```typescript
-import { TokenClient } from "@trusttrove/sdk";
+import { TokenClient } from "@clearledger/sdk";
 
 const usdc = TokenClient.forUSDC();
 const allowance = await usdc.allowance(
@@ -338,7 +338,7 @@ The return type is:
 All amounts in the SDK are `bigint` in stroops (1 USDC = 10,000,000 stroops). Use these helpers to convert:
 
 ```typescript
-import { toUsdc, fromUsdc } from "@trusttrove/sdk";
+import { toUsdc, fromUsdc } from "@clearledger/sdk";
 
 toUsdc(BigInt(10_000_000)); // → "1.00"
 fromUsdc("1000.50"); // → BigInt(10005000000)
@@ -360,7 +360,7 @@ import {
   TransactionSendError,
   TransactionFailedError,
   TransactionTimeoutError,
-} from "@trusttrove/sdk";
+} from "@clearledger/sdk";
 
 try {
   const txHash = await invoice.create(...);

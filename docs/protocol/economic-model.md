@@ -24,7 +24,7 @@ APR ≈ (discount / funded_amount) × (365 / days_to_due_date)
 ```
 
 Compare: bank credit lines typically run 15–20% APR. Traditional factoring runs
-18–30% annualized when fees are included. TrusTrove at 2% for 60 days costs 12.4%.
+18–30% annualized when fees are included. ClearLedger at 2% for 60 days costs 12.4%.
 
 The SME sets the discount. Lower discount = cheaper but may take longer to attract
 a funder. Higher discount = more expensive but funds faster. The market determines

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@trusttrove/sdk": resolve(__dirname, "../../packages/sdk/src/index.ts"),
+      "@clearledger/sdk": resolve(__dirname, "../../packages/sdk/src/index.ts"),
     },
   },
   test: {
@@ -20,7 +20,7 @@ export default defineConfig({
     globals: true,
     alias: {
       "@": resolve(__dirname, "./"),
-      "@trusttrove/sdk": resolve(__dirname, "../../packages/sdk/src/index.ts"),
+      "@clearledger/sdk": resolve(__dirname, "../../packages/sdk/src/index.ts"),
     },
     exclude: ["e2e/**", "node_modules/**"],
     coverage: {

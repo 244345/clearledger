@@ -1,6 +1,6 @@
 import React from "react";
 import { Cpu, Coins, ShieldAlert, Sparkles } from "lucide-react";
-import type { SimulationResult } from "@trusttrove/sdk";
+import type { SimulationResult } from "@clearledger/sdk";
 
 interface SimulationPreviewProps {
   details: SimulationResult | null;

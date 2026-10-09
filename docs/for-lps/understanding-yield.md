@@ -34,7 +34,7 @@ can eat into deposited principal substantially.
 **Liquidity risk.** You can only withdraw what is not currently deployed. If the
 pool is 85% utilized, only 15% of deposits are available for immediate withdrawal.
 
-**Smart contract risk.** TrusTrove contracts have not been audited. There may be
+**Smart contract risk.** ClearLedger contracts have not been audited. There may be
 bugs. Do not deposit more than you can afford to lose.
 
 **No guaranteed returns.** Yield depends on invoice volume, discount rates, and

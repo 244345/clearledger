@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPoolStats, getLPPosition } from "@/lib/api";
-import { PoolClient } from "@trusttrove/sdk";
+import { PoolClient } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 import { showSuccessToast } from "@/lib/toast";
 import { createErrorHandler } from "@/lib/errors";
@@ -19,7 +19,7 @@ interface DepositArguments {
 }
 
 /**
- * Custom hook for interacting with the TrusTrove liquidity pool contract.
+ * Custom hook for interacting with the ClearLedger liquidity pool contract.
  *
  * Provides pool statistics, the connected wallet's LP position, and mutations
  * for depositing and withdrawing liquidity. All on-chain mutations require a

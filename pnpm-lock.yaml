@@ -43,7 +43,7 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.14.8
         version: 3.14.8(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      '@trusttrove/sdk':
+      '@clearledger/sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
       '@vercel/analytics':
@@ -170,7 +170,7 @@ importers:
 
   examples/sdk-quickstart:
     dependencies:
-      '@trusttrove/sdk':
+      '@clearledger/sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
     devDependencies:
@@ -183,7 +183,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@trusttrove/sdk':
+      '@clearledger/sdk':
         specifier: workspace:*
         version: link:../sdk
       commander:
@@ -236,7 +236,7 @@ importers:
 
   packages/sdk-react:
     dependencies:
-      '@trusttrove/sdk':
+      '@clearledger/sdk':
         specifier: workspace:*
         version: link:../sdk
     devDependencies:

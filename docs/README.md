@@ -1,21 +1,35 @@
-# TrusTrove
+# ClearLedger Documentation
 
-Decentralized trade finance on Stellar. SMEs tokenize unpaid invoices and receive
-immediate USDC. Liquidity providers earn yield. Four Soroban smart contracts run
-the whole thing.
+ClearLedger is an open-source Stellar testnet prototype for coordinating invoice finance among SMEs, their trade buyers and USDC liquidity providers. This guide explains the participant workflows, protocol mechanics and developer tools.
 
-**Live app:** [trustrove.vercel.app](https://trustrove.vercel.app)  
-**Contracts repo:** [github.com/TrusTrove/TrusTrove-contract](https://github.com/TrusTrove/TrusTrove-contract)  
-**App repo:** [github.com/TrusTrove/TrusTrove-app](https://github.com/TrusTrove/TrusTrove-app)
+**Local app:** http://localhost:3000
+**Network:** Stellar Testnet
 
----
+## Start here
 
-If you are an SME looking to finance an invoice → [For SMEs](for-smes/getting-started.md)
+- [What ClearLedger does](introduction/what-is-clearledger.md)
+- [How the workflow operates](introduction/how-it-works.md)
+- [The trade finance problem](introduction/the-problem.md)
 
-If you want to provide liquidity and earn yield → [For LPs](for-lps/getting-started.md)
+## Participant guides
 
-If you want to build on or contribute to TrusTrove → [Developer Guide](developer-guide/local-setup.md)
+- [SME onboarding](for-smes/getting-started.md)
+- [Create and list an invoice](for-smes/create-your-first-invoice.md)
+- [Understand invoice discounts](for-smes/understanding-the-discount.md)
+- [Liquidity provider onboarding](for-lps/getting-started.md)
+- [Deposits and withdrawals](for-lps/deposit-usdc.md)
+- [Pool returns and risks](for-lps/understanding-yield.md)
 
-If you want to understand the system design and request flows → [System Architecture](ARCHITECTURE.md)
+## Protocol and development
 
-If you want on-chain invoice and pool events pushed to your own service → [Webhooks](webhooks.md)
+- [Architecture](ARCHITECTURE.md)
+- [Invoice lifecycle](protocol/invoice-lifecycle.md)
+- [Liquidity pool mechanics](protocol/liquidity-pool.md)
+- [Economic model and default risk](protocol/economic-model.md)
+- [Local development setup](developer-guide/local-setup.md)
+- [Indexer API reference](developer-guide/indexer-api-reference.md)
+- [How to contribute](contributing/how-to-contribute.md)
+
+## Testnet notice
+
+The application and contracts are experimental and have not been formally audited. Testnet activity is for evaluation only; it is not a live financing offer, and no yield or repayment is guaranteed. Never deposit real funds.

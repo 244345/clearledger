@@ -18,7 +18,7 @@ export default function SettingsPage() {
   // Load display preferences from localStorage
   useEffect(() => {
     try {
-      const stored = window.localStorage.getItem("trusttrove:display");
+      const stored = window.localStorage.getItem("clearledger:display");
       if (stored) {
         const prefs = JSON.parse(stored);
         if (prefs.density) setDisplayDensity(prefs.density);
@@ -36,7 +36,7 @@ export default function SettingsPage() {
   const saveDisplayPrefs = useCallback(() => {
     try {
       window.localStorage.setItem(
-        "trusttrove:display",
+        "clearledger:display",
         JSON.stringify({
           density: displayDensity,
           animations: animationsEnabled,
@@ -211,7 +211,7 @@ export default function SettingsPage() {
             Local Storage
           </h4>
           <p className="text-slate-500 text-xs font-mono mb-4">
-            TrusTrove stores preferences locally in your browser. No personal
+            ClearLedger stores preferences locally in your browser. No personal
             data is sent to external servers without your consent.
           </p>
           <button
@@ -224,7 +224,7 @@ export default function SettingsPage() {
               ) {
                 try {
                   Object.keys(window.localStorage).forEach((key) => {
-                    if (key.startsWith("trusttrove:")) {
+                    if (key.startsWith("clearledger:")) {
                       window.localStorage.removeItem(key);
                     }
                   });
@@ -309,7 +309,7 @@ export default function SettingsPage() {
                   Appearance
                 </h2>
                 <p className="text-slate-500 text-xs font-mono mt-1">
-                  Customize how TrusTrove looks on your device
+                  Customize how ClearLedger looks on your device
                 </p>
               </div>
             </header>
@@ -380,7 +380,7 @@ function NotificationPreferences({ address }: { address: string }) {
     "Invoice Defaulted",
   ];
 
-  const storageKey = `trusttrove_prefs_${address}`;
+  const storageKey = `clearledger_prefs_${address}`;
   const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
     try {
       const stored = localStorage.getItem(storageKey);

@@ -1,9 +1,9 @@
 openapi: 3.0.3
 info:
-  title: TrusTrove Indexer API
+  title: ClearLedger Indexer API
   version: 1.0.0
   description: |
-    Structured API documentation for the TrusTrove Go indexer/API service.
+    Structured API documentation for the ClearLedger Go indexer/API service.
 
     ## SEP-10 authentication flow
 
@@ -16,7 +16,7 @@ info:
 servers:
   - url: http://localhost:8080
     description: Local development
-  - url: https://trusttrove-app.onrender.com
+  - url: http://localhost:8080
     description: Production
 
 tags:

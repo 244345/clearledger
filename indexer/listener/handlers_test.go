@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/webhook"
-	"trusttrove/indexer/webhooks"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
+	"clearledger/indexer/webhook"
+	"clearledger/indexer/webhooks"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 	"github.com/stellar/go-stellar-sdk/strkey"

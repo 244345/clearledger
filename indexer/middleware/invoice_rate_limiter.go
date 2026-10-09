@@ -1,4 +1,4 @@
-// Package middleware provides HTTP middleware for the TrusTrove indexer API.
+// Package middleware provides HTTP middleware for the ClearLedger indexer API.
 // This file implements per-client rate limiting for the POST /invoices endpoint
 // to prevent XLM fund drainage via spam invoice creation.
 //

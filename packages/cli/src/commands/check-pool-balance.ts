@@ -1,4 +1,4 @@
-import { PoolClient, getConfig } from "@trusttrove/sdk";
+import { PoolClient, getConfig } from "@clearledger/sdk";
 
 const USDC_STROOPS = 10_000_000n;
 
@@ -19,13 +19,13 @@ export async function checkPoolBalanceCommand(
 ): Promise<void> {
   const publicKey =
     options.publicKey ??
-    process.env.TRUSTTROVE_PUBLIC_KEY ??
+    process.env.CLEARLEDGER_PUBLIC_KEY ??
     process.env.NEXT_PUBLIC_PUBLIC_KEY ??
     process.env.PUBLIC_KEY;
 
   if (!publicKey) {
     console.error(
-      "Missing public key. Provide --public-key or set TRUSTTROVE_PUBLIC_KEY.",
+      "Missing public key. Provide --public-key or set CLEARLEDGER_PUBLIC_KEY.",
     );
     process.exitCode = 1;
     return;
@@ -33,13 +33,13 @@ export async function checkPoolBalanceCommand(
 
   const poolContractId =
     options.poolContractId ??
-    process.env.TRUSTTROVE_POOL_CONTRACT_ID ??
+    process.env.CLEARLEDGER_POOL_CONTRACT_ID ??
     process.env.NEXT_PUBLIC_POOL_CONTRACT_ID ??
     getConfig().contractIds.pool;
 
   if (!poolContractId) {
     console.error(
-      "Missing pool contract ID. Provide --pool-contract-id or set TRUSTTROVE_POOL_CONTRACT_ID.",
+      "Missing pool contract ID. Provide --pool-contract-id or set CLEARLEDGER_POOL_CONTRACT_ID.",
     );
     process.exitCode = 1;
     return;

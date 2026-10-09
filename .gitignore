@@ -11,8 +11,8 @@ node_modules/
 /bin/
 
 # Go binaries and files
-indexer/trusttrove-indexer
-indexer/trusttrove-indexer.exe
+indexer/clearledger-indexer
+indexer/clearledger-indexer.exe
 indexer/indexer.exe
 *.wasm
 *.exe

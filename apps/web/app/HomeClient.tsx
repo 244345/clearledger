@@ -1,36 +1,39 @@
 "use client";
 
-import Link from "next/link";
 import dynamic from "next/dynamic";
-import { TopStatusBar } from "@/components/shared/TopStatusBar";
-import { Navbar } from "@/components/shared/Navbar";
-import { InvoiceFeed } from "@/components/shared/InvoiceFeed";
+import Link from "next/link";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BadgeCheck,
+  Banknote,
+  BookOpen,
+  Check,
+  ChevronRight,
+  CircleHelp,
+  FileCheck2,
+  Landmark,
+  LockKeyhole,
+  ShieldCheck,
+  Wallet,
+} from "lucide-react";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { SkeletonShimmer } from "@/components/shared/SkeletonLoader";
+import { usePool } from "@/hooks/usePool";
+import { useStats } from "@/hooks/useStats";
 
 const LpYieldCalculator = dynamic(
   () =>
     import("@/components/shared/LpYieldCalculator").then(
-      (m) => m.LpYieldCalculator,
+      (module) => module.LpYieldCalculator,
     ),
   {
     ssr: false,
     loading: () => (
-      <div className="bg-[#0d131a] border border-border rounded-lg p-5 space-y-5 shadow-[0_0_30px_rgba(0,212,170,0.02)]">
-        <SkeletonShimmer className="h-4 w-32" />
-        <div className="space-y-4">
-          <SkeletonShimmer className="h-10 w-full" />
-          <div className="space-y-2">
-            <SkeletonShimmer className="h-3 w-24" />
-            <SkeletonShimmer className="h-6 w-full" />
-          </div>
-        </div>
-        <div className="bg-[#080c10] border border-border/60 rounded p-4 space-y-3">
-          <SkeletonShimmer className="h-3 w-40" />
-          <SkeletonShimmer className="h-8 w-20" />
-          <SkeletonShimmer className="h-3 w-32" />
-          <SkeletonShimmer className="h-5 w-24" />
-        </div>
+      <div className="space-y-5 rounded-xl border border-white/10 bg-[#102536] p-6">
+        <SkeletonShimmer className="h-4 w-36" />
+        <SkeletonShimmer className="h-12 w-full" />
+        <SkeletonShimmer className="h-28 w-full" />
       </div>
     ),
   },
@@ -39,60 +42,54 @@ const LpYieldCalculator = dynamic(
 const DiscountCalculator = dynamic(
   () =>
     import("@/components/shared/DiscountCalculator").then(
-      (m) => m.DiscountCalculator,
+      (module) => module.DiscountCalculator,
     ),
   {
     ssr: false,
     loading: () => (
-      <div className="bg-card border border-border rounded-lg overflow-hidden">
-        <div className="flex border-b border-border bg-[#080c10]/60">
-          <SkeletonShimmer className="flex-1 h-12" />
-          <SkeletonShimmer className="flex-1 h-12" />
-        </div>
-        <div className="p-6 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <SkeletonShimmer className="h-4 w-48" />
-              <SkeletonShimmer className="h-20 w-full" />
-              <SkeletonShimmer className="h-20 w-full" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <SkeletonShimmer className="h-40 w-full" />
-              <SkeletonShimmer className="h-40 w-full" />
-            </div>
-          </div>
-        </div>
+      <div className="rounded-xl border border-slate-200 bg-white p-6">
+        <SkeletonShimmer className="h-10 w-full" />
       </div>
     ),
   },
 );
-import { usePool } from "@/hooks/usePool";
-import { useStats } from "@/hooks/useStats";
-import {
-  ShieldCheck,
-  FileCheck2,
-  Layers,
-  Coins,
-  Database,
-  ArrowRightLeft,
-  Landmark,
-} from "lucide-react";
 
-const specificationUrl = "https://k1ngd4vid.gitbook.io/trustrove/";
-const stellarExpertUrl = process.env.NEXT_PUBLIC_POOL_CONTRACT_ID
-  ? `https://stellar.expert/explorer/testnet/contract/${process.env.NEXT_PUBLIC_POOL_CONTRACT_ID}`
-  : "https://stellar.expert/explorer/testnet";
+const steps = [
+  {
+    number: "01",
+    icon: BadgeCheck,
+    title: "Participants register",
+    body: "SMEs and buyers register with the on-chain registry before participating in invoice activity.",
+  },
+  {
+    number: "02",
+    icon: FileCheck2,
+    title: "Invoice terms are reviewed",
+    body: "The SME records the invoice and completes the required assessment before listing it for financing.",
+  },
+  {
+    number: "03",
+    icon: Banknote,
+    title: "Liquidity funds an invoice",
+    body: "A liquidity provider can fund an eligible listed invoice at its stated discount, subject to available pool liquidity.",
+  },
+  {
+    number: "04",
+    icon: Check,
+    title: "The buyer confirms and repays",
+    body: "The buyer confirms delivery and repays the obligation. The contracts update invoice and pool state according to protocol rules.",
+  },
+];
 
 export default function HomeClient() {
-  const { stats, isStatsLoading, statsError } = usePool();
+  const { stats, isStatsLoading } = usePool();
   const {
     stats: protocolStats,
     isLoading: isProtocolStatsLoading,
     error: protocolStatsError,
   } = useStats();
 
-  // Compact USDC formatting (e.g. "12.4M") derived from the stroop-denominated stat.
-  const formatCompactUsdc = (amount: bigint | undefined): string | null => {
+  const formatUsdc = (amount: bigint | undefined) => {
     if (amount === undefined) return null;
     const value = Number(amount) / 10_000_000;
     return value.toLocaleString("en-US", {
@@ -101,334 +98,307 @@ export default function HomeClient() {
     });
   };
 
-  // Per-stat renderer: skeleton while loading, graceful fallback when the indexer is unavailable.
-  const renderStat = (
-    value: string | null,
-    isLoading?: boolean,
-    error?: unknown,
-  ) => {
-    if (isLoading) {
-      return <SkeletonShimmer className="h-7 w-20 mx-auto lg:mx-0" />;
-    }
+  const marketStats = [
+    {
+      label: "Pool deposits",
+      value: formatUsdc(stats?.totalDeposits),
+      suffix: "USDC",
+      loading: isStatsLoading,
+    },
+    {
+      label: "Invoices recorded",
+      value: protocolStats?.total_invoices.toLocaleString("en-US") ?? null,
+      suffix: "",
+      loading: isProtocolStatsLoading,
+    },
+    {
+      label: "Issuer profiles",
+      value: protocolStats?.registered_issuers.toLocaleString("en-US") ?? null,
+      suffix: "issuers",
+      loading: isProtocolStatsLoading,
+    },
+  ];
+  const hasProtocolConfig = Boolean(
+    process.env.NEXT_PUBLIC_POOL_CONTRACT_ID &&
+      process.env.NEXT_PUBLIC_INVOICE_CONTRACT_ID &&
+      process.env.NEXT_PUBLIC_REGISTRY_CONTRACT_ID,
+  );
 
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : error == null
-          ? null
-          : "An unexpected error occurred.";
-    if (errorMessage !== null || value === null) {
-      return (
-        <span className="text-xl sm:text-2xl font-bold font-mono text-slate-600 block">
-          —
-        </span>
-      );
-    }
-    return (
-      <span className="text-xl sm:text-2xl font-bold font-mono text-white block">
-        {value}
-      </span>
-    );
-  };
+  const contractUrl = process.env.NEXT_PUBLIC_POOL_CONTRACT_ID
+    ? `https://stellar.expert/explorer/testnet/contract/${process.env.NEXT_PUBLIC_POOL_CONTRACT_ID}`
+    : "https://stellar.expert/explorer/testnet";
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary selection:text-black">
-      {/* Top Status Bar with scrolling ticker */}
-      <TopStatusBar />
+    <div className="min-h-screen bg-[#f5f7f8] text-[#132b3b] selection:bg-[#b9e2d7] selection:text-[#102536]">
+      <div className="flex items-center justify-center gap-2 border-b border-white/10 bg-[#0c1d2a] px-4 py-2 text-[11px] font-medium text-[#c3d0d8]">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#63c2a6]" />
+        Stellar testnet · Public preview
+      </div>
+      <header className="border-b border-[#dce4e7] bg-white">
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-5 px-5 sm:px-8 lg:px-10">
+          <Link href="/" aria-label="ClearLedger home" className="flex shrink-0 items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#173c49] text-[#bce1d5]">
+              <Landmark className="h-[18px] w-[18px]" />
+            </span>
+            <span className="text-[17px] font-semibold tracking-[-0.04em] text-[#173445]">ClearLedger</span>
+          </Link>
+          <nav aria-label="Main navigation" className="hidden items-center gap-8 text-sm font-medium text-[#526975] lg:flex">
+            <a href="#sme" className="transition hover:text-[#173c49]">For SMEs</a>
+            <a href="#how-it-works" className="transition hover:text-[#173c49]">How it works</a>
+            <a href="#liquidity" className="transition hover:text-[#173c49]">Liquidity</a>
+            <Link href="/marketplace" className="transition hover:text-[#173c49]">Marketplace</Link>
+            <Link href="/docs" className="transition hover:text-[#173c49]">Documentation</Link>
+          </nav>
+          <Link href="/sme" className="inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-md bg-[#173c49] px-3 text-sm font-semibold text-white transition hover:bg-[#245363] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#387e6e] focus-visible:ring-offset-2 sm:gap-2 sm:px-4">
+            <span className="sm:hidden">Launch app</span>
+            <span className="hidden sm:inline">Open platform</span>
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </header>
 
-      {/* Main navigation */}
-      <Navbar />
-
-      {/* Hero Section */}
-      <main
-        id="main-content"
-        className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20 relative"
-      >
-        {/* Subtle grid background pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a2330_1px,transparent_1px),linear-gradient(to_bottom,#1a2330_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10 opacity-20 pointer-events-none" />
-
-        {/* 3-Column Split Hero */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4 items-start">
-          {/* LEFT: Live Invoice Financing Feed */}
-          <div className="lg:col-span-3 space-y-3">
-            <ErrorBoundary context="InvoiceFeed">
-              <InvoiceFeed />
-            </ErrorBoundary>
-            <div className="bg-[#0d131a] border border-border rounded-lg p-4 font-mono text-[10px] text-slate-500 leading-normal">
-              <span className="text-primary font-bold block mb-1">
-                STELLAR INTEGRATION
-              </span>
-              Every entry represents a cryptographically secure, on-chain event
-              emitted by the Soroban network and synced by our indexer.
-            </div>
-          </div>
-
-          {/* CENTER: Core Stats & Value Prop */}
-          <div className="lg:col-span-5 text-center lg:text-left space-y-8 py-4 px-2">
-            <div className="space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold font-mono tracking-widest uppercase rounded">
-                DECENTRALIZED TRADE FINANCE
-              </span>
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight font-mono uppercase">
-                ELIMINATE THE <br className="hidden sm:inline" />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">
-                  $2.5 TRILLION
-                </span>{" "}
-                <br />
-                TRADE FINANCE GAP
+      <main id="main-content">
+        <section className="overflow-hidden bg-[#f2f5f2] text-[#173445]">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1fr_.92fr] lg:items-center lg:gap-16 lg:px-10 lg:py-24">
+            <div className="min-w-0 max-w-2xl">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c9dcd3] bg-white/70 px-3.5 py-2 text-xs font-medium text-[#356b5d]">
+                <span className="h-2 w-2 rounded-full bg-[#438b73]" />
+                Trade finance infrastructure · Stellar testnet
+              </div>
+              <h1 className="max-w-[13ch] text-[2.65rem] font-semibold leading-[1.06] tracking-[-0.05em] sm:text-5xl lg:text-[4rem]">
+                Working capital for trade, structured around the invoice.
               </h1>
-              <p className="text-slate-400 text-sm leading-relaxed max-w-xl">
-                TrusTrove tokenizes outstanding trade obligations on Stellar.
-                SMEs secure immediate working capital at fair rates, and
-                liquidity providers earn direct yield.
+              <p className="mt-6 max-w-xl text-base leading-7 text-[#536975] sm:text-lg sm:leading-8">
+                ClearLedger connects SMEs awaiting payment with their business buyers and
+                USDC liquidity providers. It records invoice terms, delivery
+                confirmation, funding and repayment in one on-chain flow on Stellar.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/sme"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#173c49] px-5 text-sm font-semibold text-white transition hover:bg-[#245363] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#387e6e] focus-visible:ring-offset-2"
+                >
+                  Explore the SME workspace <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="#liquidity"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-[#b9c9c9] bg-white/70 px-5 text-sm font-semibold text-[#244a57] transition hover:border-[#7da99d] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#387e6e]"
+                >
+                  Review liquidity opportunities <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <p className="mt-5 max-w-lg text-xs leading-5 text-[#71838d]">
+                Public testnet preview. Participation depends on verification, invoice
+                assessment and available pool liquidity. Capital is at risk; returns
+                are variable and not guaranteed.
               </p>
             </div>
 
-            {/* Core Stats Row */}
-            <div className="grid grid-cols-3 gap-4 border-t border-b border-border/40 py-6">
-              {/* Pool Value */}
-              <div className="text-center lg:text-left">
-                {renderStat(formatCompactUsdc(stats?.totalDeposits))}
-                <span className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-wider block mt-1">
-                  USDC POOL VALUE
-                </span>
+            <div className="min-w-0 rounded-2xl border border-[#d9e2df] bg-white p-5 shadow-[0_20px_60px_-36px_rgba(23,52,69,.28)] sm:p-7">
+              <div className="flex items-center justify-between gap-4 border-b border-[#e7edeb] pb-4">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#538577]">Illustrative invoice</p>
+                  <p className="mt-1 text-sm font-semibold text-[#173445]">How the invoice terms fit together</p>
+                </div>
+                <span className="rounded-full bg-[#edf4f0] px-3 py-1.5 text-[11px] font-medium text-[#356b5d]">USDC</span>
               </div>
-
-              {/* Invoices Funded */}
-              <div className="text-center lg:text-left">
-                {renderStat(
-                  stats
-                    ? stats.activeInvoiceCount.toLocaleString("en-US")
-                    : null,
-                )}
-                <span className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-wider block mt-1">
-                  INVOICES FUNDED
-                </span>
+              <div className="py-6">
+                <p className="text-xs font-medium text-[#71838d]">INVOICE AMOUNT</p>
+                <p className="mt-2 font-mono text-4xl font-semibold tracking-[-0.04em] text-[#173445] sm:text-5xl">50,000<span className="ml-2 text-base font-medium tracking-normal text-[#71838d]">USDC</span></p>
               </div>
-
-              {/* Yield Distributed */}
-              <div className="text-center lg:text-left">
-                {renderStat(formatCompactUsdc(stats?.totalYieldDistributed))}
-                <span className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-wider block mt-1">
-                  YIELD DISTRIBUTED
-                </span>
+              <div className="space-y-3 border-y border-[#e7edeb] py-4 text-sm">
+                <div className="flex justify-between gap-4 text-[#617581]"><span>Illustrative discount</span><span className="font-mono font-medium text-[#173445]">2% · 1,000 USDC</span></div>
+                <div className="flex justify-between gap-4 text-[#617581]"><span>Indicative proceeds</span><span className="font-mono font-semibold text-[#246b5c]">49,000 USDC</span></div>
+              </div>
+              <div className="mt-5 flex items-center gap-2 text-xs leading-5 text-[#71838d]">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-[#438b73]" />
+                Example only. Eligibility, discount and funding depend on assessment and available liquidity.
+              </div>
+              <div className="mt-6 grid grid-cols-4 gap-2">
+                {[
+                  ["01", "Verify"],
+                  ["02", "Assess"],
+                  ["03", "Fund"],
+                  ["04", "Settle"],
+                ].map(([number, label], index) => (
+                  <div key={number} className="min-w-0 border-t-2 border-[#dce7e2] pt-2 first:border-[#438b73]">
+                    <p className={`font-mono text-[10px] ${index === 0 ? "text-[#438b73]" : "text-[#8295a1]"}`}>{number}</p>
+                    <p className="mt-1 truncate text-[11px] font-medium text-[#536975]">{label}</p>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+        </section>
 
-            <div className="text-xs font-mono text-slate-400 border-l-2 border-primary pl-3">
-              &ldquo;From invoice to USDC in minutes. Not weeks.&rdquo;
+        {hasProtocolConfig && (
+          <section aria-label="Protocol activity" className="border-b border-[#dce4e7] bg-white">
+            <div className="mx-auto grid max-w-7xl divide-y divide-[#e8edef] px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-10">
+              {marketStats.map((item) => (
+                <div key={item.label} className="flex items-center justify-between gap-4 py-5 sm:block sm:px-8 sm:py-6 first:sm:pl-0 last:sm:pr-0">
+                  <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#687b87]">{item.label}</p>
+                  {item.loading ? (
+                    <SkeletonShimmer className="h-7 w-24" />
+                  ) : item.value ? (
+                    <p className="mt-2 font-mono text-2xl font-semibold tracking-tight text-[#173445]">
+                      {item.value}<span className="ml-2 text-xs font-sans font-medium text-[#687b87]">{item.suffix}</span>
+                    </p>
+                  ) : (
+                    <p className="mt-2 text-sm font-medium text-[#687b87]">Data unavailable</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
+          <div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
+            <div className="max-w-md">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#387e6e]">The ClearLedger approach</p>
+              <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-[-0.03em] text-[#163244] sm:text-4xl">One trade. Three participants. A shared record.</h2>
+              <p className="mt-5 text-sm leading-7 text-[#536975]">
+                SMEs can request working capital against unpaid invoices. Buyers confirm
+                delivery and repay. Liquidity providers review the terms before
+                choosing whether to supply USDC. ClearLedger coordinates these
+                roles through a shared, on-chain invoice lifecycle.
+              </p>
+              <Link href="/docs" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#246b5c] hover:text-[#174e43]">
+                Read how the protocol works <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                { icon: ShieldCheck, title: "For SMEs", body: "Record an invoice, submit it for assessment and review the discount and expected proceeds before listing." },
+                { icon: FileCheck2, title: "For trade buyers", body: "Confirm delivery against the invoice and settle the obligation when it is due." },
+                { icon: Wallet, title: "For liquidity providers", body: "Review invoice terms, pool utilization and your proportional position before supplying USDC." },
+                { icon: LockKeyhole, title: "Protocol controls", body: "Registry, invoice, pool and escrow contracts coordinate verification, lifecycle state and settlement." },
+              ].map(({ icon: Icon, title, body }) => (
+                <article key={title} className="rounded-xl border border-[#dce5e7] bg-white p-5 sm:p-6">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#e9f3ef] text-[#287560]"><Icon className="h-5 w-5" /></div>
+                  <h3 className="mt-4 text-sm font-semibold text-[#173445]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#617581]">{body}</p>
+                </article>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* RIGHT: LP Yield Calculator */}
-          <div className="lg:col-span-4">
-            <ErrorBoundary context="LpYieldCalculator">
-              <LpYieldCalculator />
-            </ErrorBoundary>
+        <section id="how-it-works" className="border-y border-[#dce4e7] bg-[#edf2f2]">
+          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#387e6e]">How it works</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-[#163244] sm:text-4xl">A trade moves through clear, recorded steps</h2>
+              <p className="mt-4 text-sm leading-7 text-[#536975]">The protocol records key actions so participants can follow an invoice from onboarding through repayment.</p>
+            </div>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map(({ number, icon: Icon, title, body }) => (
+                <article key={number} className="relative rounded-xl border border-[#d8e2e4] bg-white p-5 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-[#538577]">{number}</span>
+                    <Icon className="h-5 w-5 text-[#538577]" />
+                  </div>
+                  <h3 className="mt-7 text-base font-semibold text-[#173445]">{title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#617581]">{body}</p>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* How It Works Timeline */}
-        <div className="space-y-8 border-t border-border/30 pt-16">
-          <div className="text-center space-y-2">
-            <h2 className="text-xs font-bold font-mono text-primary uppercase tracking-widest">
-              PROTOCOL WORKFLOW
-            </h2>
-            <p className="text-xl font-bold font-mono text-white uppercase">
-              HOW TRUSTROVE ELIMINATES MIDDLEMEN
+        <section id="liquidity" className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2 lg:items-start lg:px-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#387e6e]">For liquidity providers</p>
+            <h2 className="mt-4 max-w-lg text-3xl font-semibold leading-tight tracking-[-0.03em] text-[#163244] sm:text-4xl">Review invoice terms and pool mechanics before supplying capital.</h2>
+            <p className="mt-5 max-w-lg text-sm leading-7 text-[#536975]">
+              Pool shares represent a proportional position in pool value. Invoice
+              discounts may contribute to pool returns when obligations are repaid.
+              Utilization affects available withdrawals, and losses are possible.
+              Review the contract mechanics before supplying capital.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            {/* Step 1 */}
-            <div className="bg-[#0d131a] border border-border p-5 rounded-lg relative space-y-3">
-              <div className="w-8 h-8 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-1">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                1. REGISTER AS SME
-              </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                Verify your business identity on-chain via the registry contract
-                to establish trusted credentials.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-[#0d131a] border border-border p-5 rounded-lg relative space-y-3">
-              <div className="w-8 h-8 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-1">
-                <FileCheck2 className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                2. TOKENIZE INVOICE
-              </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                Generate a unique invoice cryptographic hash on-chain
-                representing your commercial shipment.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-[#0d131a] border border-border p-5 rounded-lg relative space-y-3">
-              <div className="w-8 h-8 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-1">
-                <Coins className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                3. RECEIVE USDC LIQUIDITY
-              </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                Pool contract immediately funds the invoice at the agreed
-                discount rate directly into your wallet.
-              </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="bg-[#0d131a] border border-border p-5 rounded-lg relative space-y-3">
-              <div className="w-8 h-8 rounded bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-1">
-                <Landmark className="w-4 h-4" />
-              </div>
-              <h4 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                4. BUYER MATURITY SETTLEMENT
-              </h4>
-              <p className="text-[11px] text-slate-500 leading-relaxed">
-                Buyer pays full invoice face value to the pool upon due date,
-                releasing escrow and yielding LP interest.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Three Protocol Pillars */}
-        <div className="space-y-8 pt-8">
-          <div className="text-center space-y-2">
-            <h2 className="text-xs font-bold font-mono text-primary uppercase tracking-widest">
-              SYSTEM ARCHITECTURE
-            </h2>
-            <p className="text-xl font-bold font-mono text-white uppercase">
-              SOROBAN SMART CONTRACT PIPELINE
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Pillar 1 */}
-            <div className="bg-[#0d131a] border border-border p-6 rounded-lg space-y-4">
-              <div className="flex items-center gap-2 border-b border-border/40 pb-3">
-                <Database className="w-4 h-4 text-primary" />
-                <h3 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                  REGISTRY_CONTRACT
-                </h3>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Manages decentralized profiles and KYC verification status for
-                issuers and buyers.
-              </p>
-              <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
-                <span>VERIFIED ISSUERS:</span>
-                {renderStat(
-                  protocolStats
-                    ? `${protocolStats.registered_issuers} registered`
-                    : null,
-                  isProtocolStatsLoading,
-                  protocolStatsError,
-                )}
-              </div>
-            </div>
-
-            {/* Pillar 2 */}
-            <div className="bg-[#0d131a] border border-border p-6 rounded-lg space-y-4">
-              <div className="flex items-center gap-2 border-b border-border/40 pb-3">
-                <Layers className="w-4 h-4 text-primary" />
-                <h3 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                  INVOICE_CONTRACT
-                </h3>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Stores tokenized invoices, discount rates, status lifecycle
-                events, and compliance signatures.
-              </p>
-              <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
-                <span>TOTAL OBLIGATIONS:</span>
-                {renderStat(
-                  protocolStats
-                    ? `${protocolStats.total_invoices.toLocaleString()} invoices`
-                    : null,
-                  isProtocolStatsLoading,
-                  protocolStatsError,
-                )}
-              </div>
-            </div>
-
-            {/* Pillar 3 */}
-            <div className="bg-[#0d131a] border border-border p-6 rounded-lg space-y-4">
-              <div className="flex items-center gap-2 border-b border-border/40 pb-3">
-                <ArrowRightLeft className="w-4 h-4 text-primary" />
-                <h3 className="text-xs font-bold font-mono text-white uppercase tracking-wider">
-                  POOL & ESCROW
-                </h3>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Controls USDC liquidity deposits, share-based yield parameters,
-                and locks obligations securely in escrow.
-              </p>
-              <div className="bg-[#080c10] border border-border/40 p-2.5 rounded text-[10px] font-mono flex justify-between text-slate-500">
-                <span>UTILIZATION RATE:</span>
-                {isStatsLoading ? (
-                  <span className="text-white font-bold animate-pulse">
-                    --.-%
-                  </span>
-                ) : statsError ? (
-                  <span className="text-white font-bold">--.-%</span>
-                ) : (
-                  <span className="text-white font-bold">
-                    {(stats?.utilizationRateBps || 0) / 100}% capacity
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Economic Calculator Section */}
-        <div className="space-y-6 pt-8 pb-16">
-          <div className="space-y-1">
-            <h2 className="text-xs font-bold font-mono text-primary uppercase tracking-widest">
-              FINANCIAL FEASIBILITY
-            </h2>
-            <p className="text-lg font-bold font-mono text-white uppercase">
-              INTERACTIVE ECONOMIC COMPILER
-            </p>
-          </div>
-          <ErrorBoundary context="DiscountCalculator">
-            <DiscountCalculator />
-          </ErrorBoundary>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="w-full border-t border-border bg-[#080c10] py-8 text-center text-xs font-mono text-slate-600">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span>© 2026 TRUSTROVE PROTOCOL — VERIFIED TRADE FINANCE</span>
-          <div className="flex gap-4">
-            <a
-              href={specificationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              SPECIFICATION
-            </a>
-            <a
-              href={stellarExpertUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-            >
-              STELLAR EXPERT
-            </a>
-            <Link href="/docs" className="hover:text-primary transition-colors">
-              DOCUMENTATION
+            <ul className="mt-7 space-y-3 text-sm text-[#435b68]">
+              {["See pool activity and utilization", "Preview shares for a deposit", "Review invoice terms in the marketplace"].map((item) => (
+                <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[#287560]" />{item}</li>
+              ))}
+            </ul>
+            <Link href="/lp" className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-md bg-[#173c49] px-4 text-sm font-semibold text-white transition hover:bg-[#245363]">
+              Explore liquidity <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+          <div className="rounded-2xl border border-[#dce5e7] bg-white p-4 shadow-sm sm:p-6">
+            <ErrorBoundary context="LpYieldCalculator"><LpYieldCalculator /></ErrorBoundary>
+            <p className="mt-4 text-xs leading-5 text-[#71838d]">Illustrative estimate only. Actual outcomes depend on pool utilization, invoice performance, fees and protocol conditions. This is not a guaranteed rate or investment advice.</p>
+          </div>
+        </section>
+
+        <section id="sme" className="bg-[#102536] text-white">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center lg:px-10 lg:py-20">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#a9d9c8]">For SMEs</p>
+              <h2 className="mt-4 max-w-md text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">See the costs and proceeds before you list.</h2>
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#c3d0d8]">Use the financing calculator to model an illustrative discount and compare estimated proceeds with the invoice amount. Final terms depend on the invoice assessment and pool availability.</p>
+              <Link href="/sme" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#bce1d5] hover:text-white">Start with SME tools <ArrowRight className="h-4 w-4" /></Link>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white p-3 text-[#163244] sm:p-5">
+              <ErrorBoundary context="DiscountCalculator"><DiscountCalculator /></ErrorBoundary>
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24 lg:px-10">
+          <div className="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#387e6e]">Protocol activity and contract rules</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-[#163244]">Follow the activity. Inspect the contracts.</h2>
+              <p className="mt-4 text-sm leading-7 text-[#536975]">ClearLedger is built on Stellar Soroban. Contract state records protocol actions; the indexer organizes that activity for the app. This testnet preview is experimental and is not a live financing offer.</p>
+              {protocolStatsError && <p className="mt-4 text-xs text-[#71838d]">Live protocol statistics are temporarily unavailable.</p>}
+              <a href={contractUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#246b5c] hover:text-[#174e43]">View on Stellar Expert <ArrowUpRight className="h-4 w-4" /></a>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                { icon: BadgeCheck, title: "Registry", body: "Business profiles and verification status" },
+                { icon: FileCheck2, title: "Invoice", body: "Terms, lifecycle and repayment rules" },
+                { icon: LockKeyhole, title: "Pool & escrow", body: "Liquidity accounting and fund custody" },
+              ].map(({ icon: Icon, title, body }) => (
+                <div key={title} className="rounded-xl border border-[#dce5e7] bg-white p-5">
+                  <Icon className="h-5 w-5 text-[#287560]" />
+                  <h3 className="mt-5 text-sm font-semibold text-[#173445]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#617581]">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[#dce4e7] bg-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-12 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
+            <div className="flex items-start gap-3">
+              <CircleHelp className="mt-0.5 h-5 w-5 shrink-0 text-[#387e6e]" />
+              <div>
+                <h2 className="text-sm font-semibold text-[#173445]">New to ClearLedger?</h2>
+                <p className="mt-1 text-sm text-[#617581]">Understand participant roles, invoice stages, contract flows and testnet requirements.</p>
+              </div>
+            </div>
+            <Link href="/docs" className="inline-flex min-h-11 items-center gap-2 self-start rounded-md border border-[#cbd9dc] px-4 text-sm font-semibold text-[#244a57] transition hover:border-[#7da99d] hover:bg-[#f5f8f7] md:self-auto">
+              <BookOpen className="h-4 w-4" /> Read the docs <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#0c1d2a] text-[#c3d0d8]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
+          <div>
+            <p className="text-sm font-semibold tracking-tight text-white">ClearLedger</p>
+            <p className="mt-1 text-xs text-[#9eb1bd]">Invoice finance infrastructure for Stellar.</p>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-3 text-xs">
+            <Link href="/marketplace" className="hover:text-white">Marketplace</Link>
+            <Link href="/lp" className="hover:text-white">Liquidity</Link>
+            <Link href="/docs" className="hover:text-white">Documentation</Link>
+            <Link href="/help" className="hover:text-white">Help</Link>
+          </div>
+          <p className="text-xs text-[#8295a1]">Testnet preview · © 2026 ClearLedger</p>
         </div>
       </footer>
     </div>

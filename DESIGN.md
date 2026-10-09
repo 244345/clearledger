@@ -1,5 +1,5 @@
 ---
-name: TrusTrove Terminal Design System
+name: ClearLedger Terminal Design System
 description: Bloomberg Terminal meets Stellar — Enterprise Trade Finance Operations Terminal
 colors:
   primary: "#00d4aa"
@@ -54,13 +54,13 @@ components:
     padding: "20px"
 ---
 
-# Design System: TrusTrove Terminal
+# Design System: ClearLedger Terminal
 
 ## 1. Overview
 
 **Creative North Star: "The Operations Terminal"**
 
-The TrusTrove interface is modeled on professional financial execution environments (Bloomberg Terminal, Reuters Eikon). It avoids consumer-grade DeFi trends in favor of high-density data, sharp typography contrast, and immediate functional feedback. Surfaces use a dark navy-black void background (`#080c10`) with thin slate borders (`#1a2330`) to establish a clear architectural grid.
+The ClearLedger interface is modeled on professional financial execution environments (Bloomberg Terminal, Reuters Eikon). It avoids consumer-grade DeFi trends in favor of high-density data, sharp typography contrast, and immediate functional feedback. Surfaces use a dark navy-black void background (`#080c10`) with thin slate borders (`#1a2330`) to establish a clear architectural grid.
 
 Colors represent system state and financial health, allowing operators to assess trade statuses in under one second.
 

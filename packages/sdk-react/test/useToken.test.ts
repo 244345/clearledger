@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { TokenClient } from "@trusttrove/sdk";
+import { TokenClient } from "@clearledger/sdk";
 import { useAllowance, useApprove, UseTokenOptions } from "../src/useToken.js";
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockTokenClient {
     contractId: string;
     constructor(contractId: string) {

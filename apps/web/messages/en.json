@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "TrusTrove | Decentralized Trade Finance Operations Terminal",
-    "description": "Tokenize unpaid trade invoices as Stellar assets and receive immediate USDC funding. Yield opportunities for liquidity providers."
+    "title": "ClearLedger | Invoice Finance for Trade",
+    "description": "ClearLedger coordinates SMEs, their buyers and USDC liquidity providers through an on-chain invoice lifecycle on Stellar."
   },
   "Navbar": {
     "nav": {
@@ -35,12 +35,12 @@
     "finish": "Finish",
     "steps": {
       "welcome": {
-        "title": "Welcome to TrusTrove",
+        "title": "Welcome to ClearLedger",
         "body": "Your wallet is connected. This quick tour shows where everything lives. Press Escape at any time to leave it."
       },
       "role": {
         "title": "Pick your role",
-        "body": "SMEs (issuers) tokenize unpaid invoices, buyers confirm and repay them, and LPs (funders) supply USDC liquidity. Switch roles here; the app adapts its actions to match."
+        "body": "SMEs (issuers) record invoices, buyers confirm delivery and repay, and liquidity providers supply USDC. Switch roles here; available actions depend on your profile."
       },
       "balances": {
         "title": "Your wallet balances",
@@ -52,7 +52,7 @@
       },
       "lp": {
         "title": "LP Portal",
-        "body": "Liquidity providers deposit USDC into the pool, watch yield accrue, and withdraw their share."
+        "body": "Liquidity providers can review pool activity, supply USDC and redeem shares subject to available liquidity. Returns are variable and losses are possible."
       },
       "marketplace": {
         "title": "Marketplace",
@@ -60,7 +60,7 @@
       },
       "profile": {
         "title": "Profile & verification",
-        "body": "Verification registers your business in the on-chain TrusTrove Registry. Verified wallets unlock invoice creation, trading and funding."
+        "body": "Your profile is recorded in the on-chain ClearLedger registry. A designated protocol administrator must verify your profile before gated actions are available."
       },
       "done": {
         "title": "You're all set",
@@ -71,7 +71,7 @@
   "Dashboard": {
     "connectPrompt": {
       "title": "Connect Your Wallet",
-      "body": "Connect your Freighter wallet to access the SME Financing Dashboard, issue invoices, and request immediate liquidity."
+      "body": "Connect your Freighter wallet to review invoice financing workflows. Funding depends on verification, invoice assessment and available pool liquidity."
     },
     "header": {
       "title": "SME Financing Dashboard",
@@ -125,7 +125,7 @@
       "title": "Issued Invoices",
       "emptyState": {
         "title": "No invoices yet",
-        "description": "Create your first invoice to populate the dashboard and unlock the financing flow.",
+        "description": "Create an invoice record and review its terms before listing it for potential financing.",
         "action": "Create Your First Invoice"
       }
     },
@@ -176,13 +176,13 @@
   "Marketplace": {
     "header": {
       "title": "Invoice Marketplace",
-      "description": "Audit list of tokenized trade obligations listed on the Stellar Soroban network.",
+      "description": "Review invoice records listed for financing on Stellar Soroban.",
       "liquidityLabel": "Pool Liquidity Available"
     },
     "syncing": "Syncing...",
     "verificationBanner": {
       "title": "Profile Verification Required",
-      "body": "Your connected wallet address is not verified on-chain. To fund invoices or execute smart contract operations, you must register your business credentials. Go to the <link>[Profile Page]</link> to register."
+      "body": "Your wallet profile is not yet verified. Register a profile, then wait for the protocol administrator to verify it before using gated actions. Go to the <link>[Profile Page]</link> to begin."
     },
     "filters": {
       "status": {

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	rl "trusttrove/indexer/middleware"
+	rl "clearledger/indexer/middleware"
 )
 
 // ----------------------------------------------------------- actual tests ---

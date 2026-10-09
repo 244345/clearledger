@@ -7,7 +7,7 @@ import { parseAgent } from "../types/schemas.js";
  * Client for Underwrite's agent-registry contract.
  *
  * This is a **separate, external** contract (deployed from the
- * `underwrite-contract` repo) — not the same as TrusTrove's own
+ * `underwrite-contract` repo) — not the same as ClearLedger's own
  * issuer/buyer registry (`RegistryClient`). The agent-registry is what
  * `invoice_contract.submit_attestation` checks against on-chain to
  * verify that a signer is an authorized Underwrite agent.

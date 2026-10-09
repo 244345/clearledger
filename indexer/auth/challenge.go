@@ -15,9 +15,9 @@ import (
 	"github.com/stellar/go-stellar-sdk/txnbuild"
 )
 
-// ChallengeOperationName is the ManageData key that identifies a TrusTrove
+// ChallengeOperationName is the ManageData key that identifies a ClearLedger
 // authentication challenge.
-const ChallengeOperationName = "trusttrove auth"
+const ChallengeOperationName = "clearledger auth"
 
 // GenerateChallenge constructs and signs a SEP-10 challenge transaction
 func GenerateChallenge(serverKP *keypair.Full, clientAddr string, passphrase string) (string, error) {

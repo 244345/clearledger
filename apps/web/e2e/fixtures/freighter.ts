@@ -8,7 +8,7 @@ export const MOCK_ADDRESS =
  * `localStorage` key the app writes once the onboarding tour has been shown.
  * Mirrors `ONBOARDING_SEEN_KEY` in `store/onboarding.ts`.
  */
-export const ONBOARDING_SEEN_KEY = "trusttrove:onboarding-tour-seen";
+export const ONBOARDING_SEEN_KEY = "clearledger:onboarding-tour-seen";
 
 type FreighterFixtures = {
   /**

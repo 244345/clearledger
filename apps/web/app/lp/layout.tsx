@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LP Portal | TrusTrove",
+  title: "Liquidity | ClearLedger",
   description:
-    "Provide liquidity, simulate yields, and earn USDC returns on tokenized trade invoices with TrusTrove.",
+    "Review pool mechanics and listed invoice terms on ClearLedger’s Stellar testnet. Deposits carry liquidity, repayment and smart contract risks; returns are not guaranteed.",
 };
 
 export default function LpLayout({

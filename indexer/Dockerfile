@@ -1,9 +1,9 @@
-# TrusTrove Go indexer + REST API container image.
+# ClearLedger Go indexer + REST API container image.
 #
 # Build context is the indexer directory, so the image can be built on its own
 # without the surrounding pnpm workspace:
 #
-#   docker build -f indexer/Dockerfile -t trusttrove-indexer indexer
+#   docker build -f indexer/Dockerfile -t clearledger-indexer indexer
 #
 # All runtime configuration comes from environment variables (see
 # .env.docker.example for the Compose-network values): DATABASE_URL,
@@ -23,7 +23,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build \
   -trimpath \
   -ldflags="-s -w" \
-  -o /out/trusttrove-indexer .
+  -o /out/clearledger-indexer .
 
 # ---------- runtime: minimal image with the binary + migrations ----------
 FROM alpine:3.22 AS runtime
@@ -35,7 +35,7 @@ RUN apk add --no-cache ca-certificates tzdata \
 
 WORKDIR /app
 
-COPY --from=build /out/trusttrove-indexer /app/trusttrove-indexer
+COPY --from=build /out/clearledger-indexer /app/clearledger-indexer
 
 # The indexer applies pending migrations on startup by reading *.sql files from
 # the migrations directory, so ship them next to the binary.
@@ -54,4 +54,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD wget -q -O- "http://127.0.0.1:${API_PORT}/health" >/dev/null 2>&1 || exit 1
 
-CMD ["/app/trusttrove-indexer"]
+CMD ["/app/clearledger-indexer"]

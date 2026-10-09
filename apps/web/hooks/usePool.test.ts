@@ -2,7 +2,7 @@ import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { usePool } from "./usePool";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { PoolClient } from "@trusttrove/sdk";
+import { PoolClient } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 import * as toast from "@/lib/toast";
 
@@ -12,7 +12,7 @@ vi.mock("@tanstack/react-query", () => ({
   useQueryClient: vi.fn(),
 }));
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   PoolClient: vi.fn(function () {}),
 }));
 

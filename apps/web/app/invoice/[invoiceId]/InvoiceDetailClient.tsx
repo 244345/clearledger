@@ -117,7 +117,7 @@ export default function InvoiceDetailClient({
 
   const shareMessage = useMemo(() => {
     if (!invoice) return "";
-    return `TrusTrove Invoice ${invoice.id} — ${formatAmount(invoice.faceValue)} USDC`;
+    return `ClearLedger Invoice ${invoice.id} — ${formatAmount(invoice.faceValue)} USDC`;
   }, [invoice]);
 
   const whatsappUrl = useMemo(() => {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"trusttrove/indexer/auth"
+	"clearledger/indexer/auth"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 )

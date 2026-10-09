@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const THEME_KEY = "trusttrove:theme";
+const THEME_KEY = "clearledger:theme";
 const NEXT_SCRIPTS = "**/_next/static/**/*.js";
 
 async function expectSystemThemeBeforeHydration(

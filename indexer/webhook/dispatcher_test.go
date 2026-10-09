@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/webhooks"
+	"clearledger/indexer/db"
+	"clearledger/indexer/webhooks"
 )
 
 func TestMain(m *testing.M) {

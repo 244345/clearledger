@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-06-12T02:10:40Z",
-  "title": "Design System: TrusTrove Terminal",
+  "title": "Design System: ClearLedger Terminal",
   "extensions": {
     "colorMeta": {
       "primary": {
@@ -172,7 +172,7 @@
   ],
   "narrative": {
     "northStar": "The Operations Terminal",
-    "overview": "The TrusTrove interface is modeled on professional financial execution environments (Bloomberg Terminal, Reuters Eikon). It avoids consumer-grade DeFi trends in favor of high-density data, sharp typography contrast, and immediate functional feedback. Surfaces use a dark navy-black void background (#080c10) with thin slate borders (#1a2330) to establish a clear architectural grid.",
+    "overview": "The ClearLedger interface is modeled on professional financial execution environments (Bloomberg Terminal, Reuters Eikon). It avoids consumer-grade DeFi trends in favor of high-density data, sharp typography contrast, and immediate functional feedback. Surfaces use a dark navy-black void background (#080c10) with thin slate borders (#1a2330) to establish a clear architectural grid.",
     "keyCharacteristics": [
       "Deep space backgrounds (#080c10) with flat containers (#0d131a).",
       "High text-density tables, stats rolls, and timeline tracking.",

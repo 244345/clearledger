@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { TokenClient } from "@trusttrove/sdk";
+import { TokenClient } from "@clearledger/sdk";
 import {
   useAsyncQuery,
   useAsyncMutation,

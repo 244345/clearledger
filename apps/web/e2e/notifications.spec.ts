@@ -4,7 +4,7 @@ import { test } from "./fixtures/freighter";
 // End-to-end coverage for the notification pipeline (#783-#786):
 //   /events + /invoices -> useNotifications -> per-wallet localStorage cache
 //   -> NotificationBell unread dot / dropdown -> markAllAsRead on open
-//   -> profile preference toggles (trusttrove_prefs_<address>) muting types.
+//   -> profile preference toggles (clearledger_prefs_<address>) muting types.
 //
 // The unit tests cover the pieces in isolation; these cases exercise the whole
 // path in a real browser, including cross-page and cross-reload behaviour that

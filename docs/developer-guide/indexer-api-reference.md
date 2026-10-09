@@ -1,6 +1,6 @@
 # Indexer API Reference
 
-The Go indexer runs at `https://trusttrove-app.onrender.com` in production
+The Go indexer runs at `http://localhost:8080` by default in local development
 and `http://localhost:8080` in local development.
 
 All amounts are returned as strings to preserve u128 precision.

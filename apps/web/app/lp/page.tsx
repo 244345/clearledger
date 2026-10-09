@@ -11,7 +11,7 @@ import {
 import { usePool } from "@/hooks/usePool";
 import { useWalletStore } from "@/store/wallet";
 import { useConfirmDialogStore } from "@/store/confirmDialog";
-import { PoolClient, type SimulationResult } from "@trusttrove/sdk";
+import { PoolClient, type SimulationResult } from "@clearledger/sdk";
 import { Address, nativeToScVal } from "@stellar/stellar-sdk";
 import { formatAmount } from "@/lib/assets";
 

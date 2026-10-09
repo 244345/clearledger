@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { TokenClient, getSorobanServer } from "@trusttrove/sdk";
+import { TokenClient, getSorobanServer } from "@clearledger/sdk";
 import { useWalletStore } from "@/store/wallet";
 
 /**

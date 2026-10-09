@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"trusttrove/indexer/soroban"
+	"clearledger/indexer/soroban"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 	"github.com/stellar/go-stellar-sdk/txnbuild"

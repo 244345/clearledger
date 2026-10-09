@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { PoolClient, PoolStats, LPPosition } from "@trusttrove/sdk";
+import { PoolClient, PoolStats, LPPosition } from "@clearledger/sdk";
 import {
   useAsyncQuery,
   useAsyncMutation,

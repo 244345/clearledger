@@ -43,7 +43,7 @@ describe("PageLayout", () => {
 
     const currentYear = new Date().getFullYear();
     const footerText = screen.getByText(
-      new RegExp(`© ${currentYear} TrusTrove`, "i"),
+      new RegExp(`© ${currentYear} ClearLedger`, "i"),
     );
     expect(footerText).toBeInTheDocument();
   });

@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/soroban"
-	"trusttrove/indexer/xdrutil"
+	"clearledger/indexer/db"
+	"clearledger/indexer/soroban"
+	"clearledger/indexer/xdrutil"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/stellar/go-stellar-sdk/keypair"

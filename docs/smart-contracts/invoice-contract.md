@@ -16,7 +16,7 @@ recovered signer key (see below). The SDK wrapper is
 `InvoiceClient.initialize(adminAddress, signerPublicKey)` —
 `packages/sdk/src/clients/invoice.ts` — which passes the admin address; the
 agent-registry address wiring is a deploy-time step (confirm the exact argument
-order against the `TrusTrove-contract` repo, which is the source of truth for
+order against the `ClearLedger-contract` repo, which is the source of truth for
 contract signatures).
 
 ### create

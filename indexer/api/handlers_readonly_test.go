@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/stellar/go-stellar-sdk/keypair"

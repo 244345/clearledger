@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "SME Portal | TrusTrove",
+  title: "SME Financing | ClearLedger",
   description:
-    "Tokenize unpaid trade invoices as Stellar assets and receive immediate USDC funding with TrusTrove.",
+    "Prepare trade invoices and review potential financing terms in ClearLedger’s Stellar testnet preview.",
 };
 
 export default function SmeLayout({

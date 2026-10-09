@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profile | TrusTrove",
+  title: "Profile | ClearLedger",
   description:
-    "Manage your TrusTrove profile, verification status, and wallet settings.",
+    "Manage your ClearLedger profile, verification status, and wallet settings.",
 };
 
 export default function ProfileLayout({

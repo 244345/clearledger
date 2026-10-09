@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@trusttrove/sdk": resolve(__dirname, "../sdk/src/index.ts"),
+      "@clearledger/sdk": resolve(__dirname, "../sdk/src/index.ts"),
     },
   },
   test: {

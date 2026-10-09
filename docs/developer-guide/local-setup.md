@@ -1,6 +1,6 @@
 # Local Setup
 
-Follow these steps to set up the TrusTrove repository locally.
+Follow these steps to set up the ClearLedger repository locally.
 
 ### Prerequisites
 
@@ -13,8 +13,8 @@ Follow these steps to set up the TrusTrove repository locally.
 ### 1. Clone and install
 
 ```bash
-git clone https://github.com/TrusTrove/TrusTrove-app.git
-cd TrusTrove-app
+git clone <repository-url>
+cd ClearLedger-app
 pnpm install
 ```
 
@@ -108,15 +108,15 @@ docker compose down -v          # stop the stack and delete the Postgres volume
 
 ## Command-line interface
 
-`@trusttrove/cli` (`packages/cli`) wraps the SDK's read-only contract calls:
+`@clearledger/cli` (`packages/cli`) wraps the SDK's read-only contract calls:
 
 ```bash
-pnpm --filter @trusttrove/cli build
+pnpm --filter @clearledger/cli build
 node packages/cli/dist/index.js list-invoices --status Funded --public-key <G...>
 node packages/cli/dist/index.js list-invoices --issuer <G...> --public-key <G...>
 ```
 
-`--public-key` falls back to `TRUSTTROVE_PUBLIC_KEY` and `--contract-id` to `INVOICE_CONTRACT_ID`, so once those are set in your `.env.local` (see step 2) the flags can be omitted.
+`--public-key` falls back to `CLEARLEDGER_PUBLIC_KEY` and `--contract-id` to `INVOICE_CONTRACT_ID`, so once those are set in your `.env.local` (see step 2) the flags can be omitted.
 
 ## Analyzing the frontend bundle
 
@@ -172,7 +172,7 @@ Two checks enforce this:
 - `TestMigrationsDir_NamesAreValid` (`indexer/db`, runs with `go test ./...`, no database needed) fails on a duplicate number, a name that doesn't match the pattern, or a gap in the sequence.
 - On startup, `RunMigration` refuses to apply anything if two files share a number or a name doesn't match the pattern, for example: `duplicate migration number 011: 011_add_a.sql, 011_add_b.sql (each migration needs a unique NNN_ prefix)`. A gap does not stop the indexer.
 
-The existing `009_add_webhook_subscriptions.sql` / `009_webhooks.sql` pair is the only tolerated duplicate, listed in `knownDuplicateMigrations` in `indexer/db/migration_names.go` until [#880](https://github.com/TrusTrove/TrusTrove-app/issues/880) resolves it. Don't add entries there; renumber the new migration instead.
+The existing `009_add_webhook_subscriptions.sql` / `009_webhooks.sql` pair is the only tolerated duplicate, listed in `knownDuplicateMigrations` in `indexer/db/migration_names.go` until #880 resolves it. Don't add entries there; renumber the new migration instead.
 
 Two PRs can each pass CI on their own and still collide once both merge. Requiring branches to be up to date before merging (or using a merge queue) makes the check run against the combined result.
 

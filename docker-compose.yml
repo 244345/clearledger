@@ -1,17 +1,17 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: trusttrove-db
+    container_name: clearledger-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: trusttrove
+      POSTGRES_DB: clearledger
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d trusttrove"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d clearledger"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,7 +24,7 @@ services:
     build:
       context: ./indexer
       dockerfile: Dockerfile
-    container_name: trusttrove-indexer
+    container_name: clearledger-indexer
     ports:
       - "8080:8080"
     # Compose-network values live in .env.docker — create it from
@@ -59,7 +59,7 @@ services:
         NEXT_PUBLIC_USDC_ISSUER: ${NEXT_PUBLIC_USDC_ISSUER:-GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5}
         NEXT_PUBLIC_USDC_ASSET_CODE: ${NEXT_PUBLIC_USDC_ASSET_CODE:-USDC}
         NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8080}
-    container_name: trusttrove-web
+    container_name: clearledger-web
     ports:
       - "3000:3000"
     env_file:

@@ -1,6 +1,6 @@
 # Smart Contracts Overview
 
-TrusTrove runs on four Soroban contracts deployed on Stellar testnet. They call each
+ClearLedger runs on four Soroban contracts deployed on Stellar testnet. They call each
 other in a defined pattern — the dependency order is fixed and enforced by stored
 contract addresses, not off-chain access control.
 

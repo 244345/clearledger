@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { PoolClient } from "@trusttrove/sdk";
+import { PoolClient } from "@clearledger/sdk";
 import {
   usePoolStats,
   useLPPosition,
@@ -9,7 +9,7 @@ import {
   UsePoolOptions,
 } from "../src/usePool.js";
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockPoolClient {
     contractId: string;
     constructor(contractId: string) {

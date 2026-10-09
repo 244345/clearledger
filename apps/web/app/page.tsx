@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
-  title: "TrusTrove | Decentralized Trade Finance Operations Terminal",
+  title: "ClearLedger | Invoice Finance for Trade",
   description:
-    "Tokenize unpaid trade invoices as Stellar assets and receive immediate USDC funding. Yield opportunities for liquidity providers.",
+    "ClearLedger coordinates SMEs, their buyers and USDC liquidity providers through an on-chain invoice lifecycle on Stellar.",
 };
 
 export default function Home() {

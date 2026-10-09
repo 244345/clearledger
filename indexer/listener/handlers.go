@@ -7,11 +7,11 @@ import (
 	"log/slog"
 	"time"
 
-	"trusttrove/indexer/api"
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/soroban"
-	"trusttrove/indexer/xdrutil"
+	"clearledger/indexer/api"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
+	"clearledger/indexer/soroban"
+	"clearledger/indexer/xdrutil"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/stellar/go-stellar-sdk/keypair"
@@ -376,7 +376,7 @@ func (l *EventListener) handleRegistrationEvent(ctx context.Context, tx db.Queri
 // webhook package already builds actually fire (issue #878).
 //
 // Topic/value layouts follow the contract event catalog
-// (TrusTrove-contract: docs/EVENTS.md and contracts/pool/src/events.rs). Each
+// (ClearLedger-contract: docs/EVENTS.md and contracts/pool/src/events.rs). Each
 // event accepts both the published symbol (lp_deposited, lp_withdrawn,
 // repayment_received, invoice_defaulted) and the function-style name the
 // listener historically matched on, so renaming either side cannot silently

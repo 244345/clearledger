@@ -1,14 +1,14 @@
 {
-  "name": "trusttrove-app",
+  "name": "clearledger-app",
   "version": "1.0.0",
   "private": true,
   "description": "Decentralized Trade Finance on Stellar",
   "scripts": {
     "dev": "pnpm --filter web dev",
-    "build": "pnpm --filter @trusttrove/sdk build && pnpm --filter @trusttrove/sdk-react build && pnpm --filter @trusttrove/cli build && pnpm --filter web build",
-    "lint": "pnpm --filter @trusttrove/sdk lint && pnpm --filter web lint",
-    "test": "pnpm --filter @trusttrove/sdk test && pnpm --filter @trusttrove/sdk-react test && pnpm --filter @trusttrove/cli test && pnpm --filter web test",
-    "typecheck": "pnpm --filter @trusttrove/sdk build && pnpm --filter @trusttrove/sdk-react build && pnpm --filter @trusttrove/cli build && pnpm -r exec tsc --noEmit"
+    "build": "pnpm --filter @clearledger/sdk build && pnpm --filter @clearledger/sdk-react build && pnpm --filter @clearledger/cli build && pnpm --filter web build",
+    "lint": "pnpm --filter @clearledger/sdk lint && pnpm --filter web lint",
+    "test": "pnpm --filter @clearledger/sdk test && pnpm --filter @clearledger/sdk-react test && pnpm --filter @clearledger/cli test && pnpm --filter web test",
+    "typecheck": "pnpm --filter @clearledger/sdk build && pnpm --filter @clearledger/sdk-react build && pnpm --filter @clearledger/cli build && pnpm -r exec tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

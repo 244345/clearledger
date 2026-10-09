@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { RegistryClient, Profile } from "@trusttrove/sdk";
+import { RegistryClient, Profile } from "@clearledger/sdk";
 import {
   useAsyncQuery,
   useAsyncMutation,

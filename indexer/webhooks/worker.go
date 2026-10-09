@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 )
 
 // WorkerConfig holds configuration for the webhook delivery worker.
@@ -165,8 +165,8 @@ func (w *DeliveryWorker) attemptDelivery(ctx context.Context, delivery *db.Webho
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("X-TrusTrove-Timestamp", ts)
-	req.Header.Set("X-TrusTrove-Signature", "sha256="+sig)
+	req.Header.Set("X-ClearLedger-Timestamp", ts)
+	req.Header.Set("X-ClearLedger-Signature", "sha256="+sig)
 
 	resp, err := w.client.Do(req)
 	if err != nil {

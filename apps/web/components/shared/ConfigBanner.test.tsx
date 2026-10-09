@@ -34,9 +34,9 @@ describe("ConfigBanner", () => {
 
     render(<ConfigBanner />);
 
-    expect(screen.getByText("Configuration Error")).toBeInTheDocument();
+    expect(screen.getByText("Setup required")).toBeInTheDocument();
     expect(
-      screen.getByText(/Missing required environment variables/),
+      screen.getByText(/Missing contract IDs for Invoice Contract, Pool Contract/),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/Invoice Contract, Pool Contract/),

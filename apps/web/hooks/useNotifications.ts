@@ -50,7 +50,7 @@ export function useNotifications() {
     });
 
     const mappedNotifs = relevantEvents.map(mapEventToNotification);
-    const storageKey = `trusttrove_notifs_${address}`;
+    const storageKey = `clearledger_notifs_${address}`;
     let saved: NotificationEvent[] = [];
 
     try {
@@ -72,7 +72,7 @@ export function useNotifications() {
 
     let prefs: Record<string, boolean> = {};
     try {
-      const p = localStorage.getItem(`trusttrove_prefs_${address}`);
+      const p = localStorage.getItem(`clearledger_prefs_${address}`);
       if (p) prefs = JSON.parse(p);
     } catch (e) {}
 
@@ -93,7 +93,7 @@ export function useNotifications() {
 
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
 
-    const storageKey = `trusttrove_notifs_${address}`;
+    const storageKey = `clearledger_notifs_${address}`;
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored) {

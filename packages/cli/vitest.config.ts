@@ -5,8 +5,8 @@ export default defineConfig({
   resolve: {
     alias: {
       // Resolve the workspace SDK to its source so the CLI tests never
-      // depend on a prior `pnpm --filter @trusttrove/sdk build`.
-      "@trusttrove/sdk": resolve(__dirname, "../sdk/src/index.ts"),
+      // depend on a prior `pnpm --filter @clearledger/sdk build`.
+      "@clearledger/sdk": resolve(__dirname, "../sdk/src/index.ts"),
     },
   },
   test: {

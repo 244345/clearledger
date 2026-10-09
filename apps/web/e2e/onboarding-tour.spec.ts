@@ -2,7 +2,7 @@ import { expect, type Page } from "@playwright/test";
 import { test, ONBOARDING_SEEN_KEY } from "./fixtures/freighter";
 
 const STEP_TITLES = [
-  "Welcome to TrusTrove",
+  "Welcome to ClearLedger",
   "Pick your role",
   "Your wallet balances",
   "SME Dashboard",
@@ -105,7 +105,7 @@ test.describe("Onboarding tour on first connect", () => {
       .click();
 
     await expect(tour).toBeVisible();
-    await expect(tour.getByRole("heading")).toHaveText("Welcome to TrusTrove");
+    await expect(tour.getByRole("heading")).toHaveText("Welcome to ClearLedger");
   });
 });
 

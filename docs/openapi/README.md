@@ -1,4 +1,4 @@
-# TrusTrove Indexer API Documentation
+# ClearLedger Indexer API Documentation
 
 The OpenAPI 3.0 specification for the Go indexer/API lives in [`indexer.yaml`](./indexer.yaml).
 

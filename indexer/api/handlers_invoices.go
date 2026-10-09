@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 
 	"github.com/go-chi/chi/v5"
 )

@@ -4,7 +4,7 @@ import { create } from "zustand";
  * `localStorage` key recording that this browser has already been shown the
  * first-connect onboarding tour. Once set, the tour only opens on request.
  */
-export const ONBOARDING_SEEN_KEY = "trusttrove:onboarding-tour-seen";
+export const ONBOARDING_SEEN_KEY = "clearledger:onboarding-tour-seen";
 
 /** Whether this browser has already been shown the tour automatically. */
 export function hasSeenOnboarding(): boolean {

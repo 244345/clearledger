@@ -1,28 +1,21 @@
 # Getting Started as an SME
 
-To finance invoices on TrusTrove you need three things:
+ClearLedger is an experimental Stellar Testnet prototype for exploring an invoice-finance workflow. It does not promise financing or repayment. Use testnet assets only.
 
-1. **Freighter wallet** — the Stellar browser extension. Install it at [freighter.app](https://freighter.app).
-2. **Testnet XLM** — to pay transaction fees. Get some at [friendbot.stellar.org](https://friendbot.stellar.org).
-3. **Testnet USDC** — the buyer will need this to repay. Get some at [demo.stellar.org](https://demo.stellar.org).
+You will need:
 
-### Step 1 — Connect your wallet
+1. A Stellar-compatible wallet such as [Freighter](https://freighter.app).
+2. Testnet XLM to authorize network transactions. Stellar’s [Friendbot](https://friendbot.stellar.org) can fund test accounts.
+3. Testnet USDC if your test scenario includes invoice repayment; use the testnet asset shown in the app.
 
-Go to [trustrove.vercel.app](https://trustrove.vercel.app) and click **Connect Wallet**.
-Freighter will ask you to approve the connection. Make sure Freighter is set to **Testnet**.
+## Connect and register
 
-### Step 2 — Register as an issuer
+Open the local app, switch Freighter to **Testnet**, then connect your wallet. Register an SME issuer profile from **Profile**. A designated protocol administrator must separately verify the profile before gated actions are available.
 
-On first login, TrusTrove checks whether your address is registered. If not,
-it shows an onboarding screen. Click **Register as SME**, fill in your company
-details, and sign the transaction with Freighter. This is a one-time step.
+Profile metadata is written to the public Stellar ledger. For this testnet preview, use test data and do not enter real tax identifiers, personal contact details or confidential business information.
 
-### Step 3 — Register your buyer
+## Add a buyer and prepare an invoice
 
-Your buyer also needs to be registered. Share the TrusTrove link with them and
-ask them to connect their wallet and register as a buyer.
+Your buyer needs a registered and verified buyer profile. In the SME workspace, create an invoice with the buyer’s wallet address, face value and due date. Review the proposed discount and other terms before listing it. Listing does not guarantee that the pool will fund the invoice.
 
-### Step 4 — Create your first invoice
-
-Go to the SME Dashboard and click **Create Invoice**.
-See [Create Your First Invoice](create-your-first-invoice.md) for the full flow.
+See [Create and list an invoice](create-your-first-invoice.md) for the detailed flow and limitations.

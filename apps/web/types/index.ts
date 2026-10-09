@@ -5,7 +5,7 @@ export type {
   LPPosition,
   Profile,
   AssetType,
-} from "@trusttrove/sdk";
+} from "@clearledger/sdk";
 
 export interface EventLog {
   id: number;

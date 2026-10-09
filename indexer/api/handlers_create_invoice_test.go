@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/soroban"
+	"clearledger/indexer/soroban"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 	"github.com/stellar/go-stellar-sdk/xdr"

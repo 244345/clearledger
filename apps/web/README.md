@@ -1,6 +1,6 @@
-# TrusTrove Web App
+# ClearLedger Web App
 
-TrusTrove is a decentralized trade finance application on Stellar. SMEs create and tokenize invoices, liquidity providers fund those invoices with USDC, and buyers repay at maturity. This package contains the Next.js frontend that connects wallet users to the TrusTrove indexer/API and TypeScript SDK.
+ClearLedger is an experimental Stellar testnet application for invoice finance. It coordinates SME issuers, trade buyers and liquidity providers around invoice terms, delivery confirmation, pool funding and repayment. This package contains the Next.js interface for the Go indexer/API, Soroban contracts and TypeScript SDK.
 
 ## Architecture
 
@@ -16,7 +16,7 @@ Stellar Horizon + Soroban RPC
 Registry / Invoice / Pool / Escrow contracts
 ```
 
-See the root [`README.md`](../../README.md) for the full project overview and deployed Testnet contract addresses.
+See the root [`README.md`](../../README.md) for the project overview and testnet configuration.
 
 ## Prerequisites
 
@@ -113,7 +113,7 @@ From `apps/web`:
 | `pnpm build` | Create production build.             |
 | `pnpm start` | Start production server after build. |
 | `pnpm lint`  | Run Next lint.                       |
-| `pnpm test`  | Run Node test runner.                |
+| `pnpm test`  | Run the configured Vitest suites.                |
 
 ## Wallet setup
 
@@ -121,7 +121,7 @@ From `apps/web`:
 2. Switch Freighter to Stellar Testnet.
 3. Fund your account from the Stellar testnet friendbot or demo faucet.
 4. Use the app navbar wallet button to connect.
-5. Complete profile/KYC flows before issuer or LP actions where required.
+5. Register an SME or buyer profile and complete the protocol verification step before gated actions. Registration is not a substitute for legal or commercial due diligence.
 
 ## API documentation
 

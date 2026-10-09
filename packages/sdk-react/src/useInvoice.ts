@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { InvoiceClient, Invoice, InvoiceStatus } from "@trusttrove/sdk";
+import { InvoiceClient, Invoice, InvoiceStatus } from "@clearledger/sdk";
 import {
   useAsyncQuery,
   useAsyncMutation,

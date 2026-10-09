@@ -51,7 +51,7 @@ describe("config helpers", () => {
     ]);
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy).toHaveBeenCalledWith(
-      "[TrusTrove] Missing required environment variables: NEXT_PUBLIC_POOL_CONTRACT_ID, NEXT_PUBLIC_REGISTRY_CONTRACT_ID",
+      "[ClearLedger] Missing required environment variables: NEXT_PUBLIC_POOL_CONTRACT_ID, NEXT_PUBLIC_REGISTRY_CONTRACT_ID",
     );
   });
 

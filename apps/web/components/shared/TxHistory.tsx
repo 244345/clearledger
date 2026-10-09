@@ -97,7 +97,7 @@ export function TxHistory({ address }: TxHistoryProps) {
 
       {!error && !isLoading && transactions.length === 0 && (
         <p className="text-slate-500 text-sm text-center py-6">
-          No TrusTrove transactions found for this wallet.
+          No ClearLedger transactions found for this wallet.
         </p>
       )}
 

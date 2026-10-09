@@ -141,13 +141,13 @@ describe("resolveConnectUrls", () => {
 
   it("uses the configured URLs and keeps the SDK's testnet defaults", () => {
     const urls = resolveConnectUrls({
-      NEXT_PUBLIC_API_BASE_URL: "https://api.trustrove.example",
+      NEXT_PUBLIC_API_BASE_URL: "https://api.example.test",
       NEXT_PUBLIC_HORIZON_URL: "https://horizon.stellar.org",
       NEXT_PUBLIC_SOROBAN_RPC_URL: "https://mainnet.sorobanrpc.com",
     });
     expect(urls).toEqual(
       expect.arrayContaining([
-        "https://api.trustrove.example",
+        "https://api.example.test",
         "https://horizon.stellar.org",
         "https://mainnet.sorobanrpc.com",
         DEFAULT_HORIZON_URL,

@@ -11,7 +11,7 @@ import { showSuccessToast } from "@/lib/toast";
 import { createErrorHandler } from "@/lib/errors";
 import { useTokenAllowance } from "./useTokenAllowance";
 import type { AssetType } from "@/types";
-import type { InvoiceClient, PoolClient } from "@trusttrove/sdk";
+import type { InvoiceClient, PoolClient } from "@clearledger/sdk";
 
 const { handleMutationError } = createErrorHandler("useInvoices");
 
@@ -73,7 +73,7 @@ export function useInvoiceActions() {
 
   const getInvoiceClient = useCallback(async () => {
     if (!invoiceClientRef.current) {
-      const { InvoiceClient } = await import("@trusttrove/sdk");
+      const { InvoiceClient } = await import("@clearledger/sdk");
       invoiceClientRef.current = new InvoiceClient(invoiceContractID);
     }
     return invoiceClientRef.current;
@@ -81,7 +81,7 @@ export function useInvoiceActions() {
 
   const getPoolClient = useCallback(async () => {
     if (!poolClientRef.current) {
-      const { PoolClient } = await import("@trusttrove/sdk");
+      const { PoolClient } = await import("@clearledger/sdk");
       poolClientRef.current = new PoolClient(poolContractID);
     }
     return poolClientRef.current;

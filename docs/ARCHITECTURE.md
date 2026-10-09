@@ -1,14 +1,14 @@
 # System Architecture Overview
 
-This document provides a high-level overview of the TrusTrove system architecture, describing the components, their responsibilities, and the exact data flow for invoice creation.
+This document provides a high-level overview of the ClearLedger system architecture, describing the components, their responsibilities, and the exact data flow for invoice creation.
 
 ## 1. System Overview
 
-TrusTrove is a decentralized trade finance platform built on the Stellar network. The system consists of three main tiers:
+ClearLedger is a decentralized trade finance platform built on the Stellar network. The system consists of three main tiers:
 
 1. **Frontend**: Next.js single-page application that provides user interfaces for SMEs and Liquidity Providers.
 2. **Go Indexer / Backend**: Go API service and background event listener backed by a PostgreSQL database, with webhook fan-out and Prometheus metrics.
-3. **Smart Contracts**: Soroban smart contracts deployed on the Stellar Testnet (four TrusTrove contracts plus the external Underwrite agent-registry they depend on).
+3. **Smart Contracts**: Soroban smart contracts deployed on the Stellar Testnet (four ClearLedger contracts plus the external Underwrite agent-registry they depend on).
 
 ```
 ┌────────────────────────────────┐
@@ -48,7 +48,7 @@ TrusTrove is a decentralized trade finance platform built on the Stellar network
 - **Role**: High-fidelity web application for interacting with the platform.
 - **Current Responsibilities**:
   - Connects to Stellar wallets (e.g., Freighter) for transaction signing.
-  - Interacts directly with the Soroban smart contracts via [`@trusttrove/sdk`](../packages/sdk) for user-initiated on-chain operations (e.g., listing an invoice, depositing USDC to the pool, repaying an invoice).
+  - Interacts directly with the Soroban smart contracts via [`@clearledger/sdk`](../packages/sdk) for user-initiated on-chain operations (e.g., listing an invoice, depositing USDC to the pool, repaying an invoice).
   - Performs off-chain requests to the Go Indexer API for user authentication and invoice creation.
   - Queries the Indexer API to fetch historical lists of invoices, liquidity pool metrics, and individual LP positions.
 
@@ -66,7 +66,7 @@ TrusTrove is a decentralized trade finance platform built on the Stellar network
 
 ### Smart Contracts (Soroban)
 
-- **Location**: Deployed on Stellar Testnet (Source repository: `TrusTrove-contract`)
+- **Location**: Deployed on Stellar Testnet (Source repository: `ClearLedger-contract`)
 - **Role**: Decentralized protocol logic and fund management on-chain.
 - **Current Responsibilities**:
   - `registry_contract`: Manages white-listed status for participating SMEs (issuers) and Buyers.
@@ -81,16 +81,16 @@ TrusTrove is a decentralized trade finance platform built on the Stellar network
 | -------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------- |
 | `apps/web`           | Next.js app                    | SME / LP user interfaces                                                                                       |
 | `indexer`            | Go module                      | API service, event listener, webhook fan-out                                                                   |
-| `packages/sdk`       | `@trusttrove/sdk`              | TypeScript wrappers over all Soroban contract calls                                                            |
-| `packages/sdk-react` | `@trusttrove/sdk-react`        | React hooks over the SDK (`useInvoice`, `usePool`, `useEscrow`, `useRegistry`, `useAgentRegistry`, `useToken`) |
-| `packages/cli`       | `@trusttrove/cli`              | `trusttrove` command-line client built on the SDK                                                              |
+| `packages/sdk`       | `@clearledger/sdk`              | TypeScript wrappers over all Soroban contract calls                                                            |
+| `packages/sdk-react` | `@clearledger/sdk-react`        | React hooks over the SDK (`useInvoice`, `usePool`, `useEscrow`, `useRegistry`, `useAgentRegistry`, `useToken`) |
+| `packages/cli`       | `@clearledger/cli`              | `clearledger` command-line client built on the SDK                                                              |
 | `examples/`          | e.g. `examples/sdk-quickstart` | Runnable framework-free SDK usage examples                                                                     |
 
 ---
 
 ## 3. Invoice Creation Request Flow
 
-Invoice creation in TrusTrove follows a hybrid pattern: the Frontend requests creation via the Indexer API (acting as a transaction relay/operator), and the Indexer handles the on-chain submission, polling, and subsequent database synchronization.
+Invoice creation in ClearLedger follows a hybrid pattern: the Frontend requests creation via the Indexer API (acting as a transaction relay/operator), and the Indexer handles the on-chain submission, polling, and subsequent database synchronization.
 
 ### Step-by-Step Lifecycle
 
@@ -187,7 +187,7 @@ sequenceDiagram
 ## 5. Listing → Attestation Check → Funding Flow
 
 Unlike creation (relayed by the indexer), listing and funding are user-signed
-Soroban transactions submitted from the frontend via `@trusttrove/sdk` with
+Soroban transactions submitted from the frontend via `@clearledger/sdk` with
 Freighter. Listing is gated on the Underwrite attestation: `list_for_financing`
 fails with `VerificationRequired` until a registered, active agent's
 `AttestationSubmitted` event has been indexed. The listener fans each indexed

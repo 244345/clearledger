@@ -21,16 +21,14 @@ export function ConfigBanner() {
         <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
         <div className="font-mono text-xs">
           <p className="font-bold text-amber-400 uppercase tracking-wider mb-1">
-            Configuration Error
+            Setup required
           </p>
-          <p className="text-amber-400/70 leading-relaxed">
-            Missing required environment variables:{" "}
-            {config.missing.map((key) => envVarLabels[key] || key).join(", ")}
-            .. Contract interactions will fail until these are configured in{" "}
+          <p className="text-amber-400/80 leading-relaxed">
+            Missing contract IDs for {config.missing.map((key) => envVarLabels[key] || key).join(", ")}. Add them to{" "}
             <code className="text-amber-500 bg-black/30 px-1 rounded">
               .env.local
             </code>
-            .
+            {" "}to enable contract interactions.
           </p>
         </div>
       </div>

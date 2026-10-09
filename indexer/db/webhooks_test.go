@@ -474,7 +474,7 @@ func TestWebhookDeliveryPendingFilter(t *testing.T) {
 func ExampleCreateWebhookSubscription() {
 	ctx := context.Background()
 	sub := &WebhookSubscription{
-		TargetURL:     "https://myapp.com/webhooks/trusttrove",
+		TargetURL:     "https://myapp.com/webhooks/clearledger",
 		EventTypes:    []string{"invoice.created", "invoice.funded", "invoice.repaid", "pool.deposit"},
 		SigningSecret: "whsec_abcdef123456",
 		Active:        true,

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Marketplace | TrusTrove",
+  title: "Marketplace | ClearLedger",
   description:
-    "Browse and trade tokenized trade invoices on the Stellar network with TrusTrove.",
+    "Review invoices listed for financing and their stated terms in ClearLedger’s Stellar testnet marketplace. Funding is subject to protocol rules and available liquidity.",
 };
 
 export default function MarketplaceLayout({

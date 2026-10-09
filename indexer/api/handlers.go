@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/soroban"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
+	"clearledger/indexer/soroban"
 
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/stellar/go-stellar-sdk/keypair"

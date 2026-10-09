@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"trusttrove/indexer/api"
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
+	"clearledger/indexer/api"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 )

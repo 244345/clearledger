@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import AnalyticsClient from "./AnalyticsClient";
 
 export const metadata: Metadata = {
-  title: "TrusTrove | Protocol Analytics",
+  title: "Analytics | ClearLedger",
   description:
-    "Protocol-wide TVL, funding volume, and pool utilization trends for TrusTrove on Stellar.",
+    "Review available protocol activity and pool metrics from ClearLedger’s Stellar testnet deployment.",
 };
 
 export default function AnalyticsPage() {

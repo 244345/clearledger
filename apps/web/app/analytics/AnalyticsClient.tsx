@@ -67,7 +67,7 @@ export default function AnalyticsClient() {
           </h1>
           <p className="mt-1 text-sm text-slate-400">
             Total value locked, funding volume, and pool utilization across the
-            TrusTrove protocol.
+            ClearLedger protocol.
           </p>
         </div>
 

@@ -1,6 +1,6 @@
 # Stellar Mainnet Setup Guide
 
-This guide explains how to configure and deploy TrusTrove to the Stellar Mainnet. It covers environment variables, RPC endpoints, contract deployment, and network switching.
+This guide explains how to configure and deploy ClearLedger to the Stellar Mainnet. It covers environment variables, RPC endpoints, contract deployment, and network switching.
 
 ## Overview
 
@@ -180,11 +180,11 @@ Users need to:
    - Code: `USDC`
 3. Switch to "Stellar Mainnet" network in Freighter
 4. Fund their account with XLM for transaction fees
-5. Open TrusTrove application with mainnet environment variables
+5. Open ClearLedger application with mainnet environment variables
 
 ### Frontend Implementation
 
-The TrusTrove frontend reads the network configuration from environment variables. The network passphrase is used to:
+The ClearLedger frontend reads the network configuration from environment variables. The network passphrase is used to:
 
 - **Sign transactions** (`lib/freighter.ts` uses it via `stellar-sdk`)
 - **Validate network compatibility** with Freighter
@@ -194,7 +194,7 @@ The SDK automatically uses `NEXT_PUBLIC_NETWORK_PASSPHRASE` from the config:
 
 ```typescript
 // apps/web/lib/api.ts
-import { DEFAULT_NETWORK } from "@trusttrove/sdk";
+import { DEFAULT_NETWORK } from "@clearledger/sdk";
 
 // Transactions are signed with the network passphrase
 const transaction = new Transaction(

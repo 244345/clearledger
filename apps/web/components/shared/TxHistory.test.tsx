@@ -60,7 +60,7 @@ describe("TxHistory", () => {
 
     expect(screen.getByText("Transaction History")).toBeInTheDocument();
     expect(
-      screen.getByText("No TrusTrove transactions found for this wallet."),
+      screen.getByText("No ClearLedger transactions found for this wallet."),
     ).toBeInTheDocument();
   });
 
@@ -71,7 +71,7 @@ describe("TxHistory", () => {
 
     expect(screen.getAllByTestId("tx-row-skeleton").length).toBeGreaterThan(0);
     expect(
-      screen.queryByText("No TrusTrove transactions found for this wallet."),
+      screen.queryByText("No ClearLedger transactions found for this wallet."),
     ).not.toBeInTheDocument();
   });
 

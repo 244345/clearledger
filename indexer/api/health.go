@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 )
 
 // ListenerHealth tracks whether the background listener is still alive.

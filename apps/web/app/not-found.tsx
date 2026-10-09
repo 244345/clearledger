@@ -16,7 +16,7 @@ export default function NotFound() {
           This page doesn&apos;t exist.
         </p>
         <p className="text-xs text-slate-500 font-mono mb-6">
-          The route you tried to reach isn&apos;t part of TrusTrove.
+          The route you tried to reach isn&apos;t part of ClearLedger.
         </p>
 
         <div className="flex flex-col gap-2">

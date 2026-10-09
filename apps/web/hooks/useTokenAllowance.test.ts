@@ -2,9 +2,9 @@ import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useTokenAllowance } from "./useTokenAllowance";
 import { useWalletStore } from "@/store/wallet";
-import { TokenClient, getSorobanServer } from "@trusttrove/sdk";
+import { TokenClient, getSorobanServer } from "@clearledger/sdk";
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   TokenClient: {
     forUSDC: vi.fn(),
   },

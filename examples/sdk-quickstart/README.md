@@ -1,6 +1,6 @@
-# @trusttrove/sdk Quickstart
+# @clearledger/sdk Quickstart
 
-A minimal, runnable example showing how to use the `@trusttrove/sdk` against
+A minimal, runnable example showing how to use the `@clearledger/sdk` against
 Stellar **testnet**. It calls three read-only SDK methods and prints the
 results to the console:
 
@@ -27,7 +27,7 @@ From the repository root:
 pnpm install
 ```
 
-This links the local `@trusttrove/sdk` workspace package into the example.
+This links the local `@clearledger/sdk` workspace package into the example.
 
 ## Run
 
@@ -89,5 +89,5 @@ SIGNER_PUBLIC_KEY=GABCDEFGHIJKLMNOPQRSTUVWXYZ234567 pnpm --filter sdk-quickstart
 - If a Soroban RPC simulation fails with an XDR/`Bad union switch` decode error,
   the installed `@stellar/stellar-sdk` in `packages/sdk` may be older than the
   protocol supported by the RPC endpoint being hit. Bump that dependency first
-  and rebuild the SDK (`pnpm --filter @trusttrove/sdk build`) before debugging
+  and rebuild the SDK (`pnpm --filter @clearledger/sdk build`) before debugging
   the example itself.

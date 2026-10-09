@@ -100,8 +100,8 @@ export function DiscountCalculator() {
         {/* Disclaimer row */}
         <div className="border-t border-border pt-4 text-center">
           <span className="text-[10px] text-slate-500 font-mono block">
-            TrusTrove charges what the market sets. Discount rates are agreed
-            between the SME and the protocol. No hidden fees.
+            Discount rates are set for each financing opportunity. Review the
+            displayed terms and fees before proceeding.
           </span>
         </div>
       </div>

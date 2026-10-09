@@ -1,141 +1,108 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  BookOpen,
+  Building2,
+  CircleHelp,
+  Droplets,
+  FileText,
+  ShieldCheck,
+} from "lucide-react";
 import { Navbar } from "@/components/shared/Navbar";
 import { TopStatusBar } from "@/components/shared/TopStatusBar";
-import { BookOpen, Terminal, ExternalLink, Loader2 } from "lucide-react";
+
+const guides = [
+  {
+    href: "/sme",
+    icon: Building2,
+    title: "For SMEs",
+    description:
+      "Register a business profile, prepare an invoice and review its financing terms.",
+    action: "Open SME workspace",
+  },
+  {
+    href: "/marketplace",
+    icon: FileText,
+    title: "For trade buyers",
+    description:
+      "Review invoices addressed to your business, confirm delivery and repay due obligations.",
+    action: "Open invoice marketplace",
+  },
+  {
+    href: "/lp",
+    icon: Droplets,
+    title: "For liquidity providers",
+    description:
+      "Review pool activity, deposit and withdrawal mechanics, and the risks of supplying USDC.",
+    action: "Review liquidity",
+  },
+];
 
 export default function DocsPage() {
-  const [logs, setLogs] = useState<string[]>([]);
-  const [bootFinished, setBootFinished] = useState(false);
-  const docUrl = "https://k1ngd4vid.gitbook.io/trustrove/";
-
-  const goToDocs = () => {
-    if (typeof window !== "undefined") {
-      window.location.href = docUrl;
-    }
-  };
-
-  useEffect(() => {
-    const logMessages = [
-      "INITIATING SECURE DOCS DISPATCH ROUTER...",
-      "RESOLVING SYSTEM ROUTE: /docs",
-      "ESTABLISHING CONNECTION WITH GITBOOK PROTOCOL...",
-      "FEDERATED SPACE IDENTIFIED: TrusTrove Docs",
-      "EXTERNAL GATEWAY SECURED: k1ngd4vid.gitbook.io",
-      "DELEGATING TRAFFIC TO SECURE SOURCE...",
-    ];
-
-    let currentLogIndex = 0;
-    const logInterval = setInterval(() => {
-      if (currentLogIndex < logMessages.length) {
-        setLogs((prev) => [...prev, logMessages[currentLogIndex]]);
-        currentLogIndex++;
-      } else {
-        clearInterval(logInterval);
-        setBootFinished(true);
-        goToDocs();
-      }
-    }, 350);
-
-    return () => clearInterval(logInterval);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-primary selection:text-black">
+    <div className="min-h-screen bg-background text-foreground">
       <TopStatusBar />
       <Navbar />
-
-      <main className="flex-1 w-full max-w-4xl mx-auto px-4 py-16 flex flex-col justify-center items-center relative">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a2330_1px,transparent_1px),linear-gradient(to_bottom,#1a2330_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] -z-10 opacity-25 pointer-events-none" />
-
-        <div className="w-full max-w-xl bg-[#080d14]/90 border border-border rounded-lg shadow-2xl p-6 font-mono relative overflow-hidden terminal-grid">
-          <div className="flex items-center justify-between border-b border-border/60 pb-4 mb-6">
-            <div className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-xs font-bold text-white tracking-widest uppercase">
-                SYSTEM MODULE: ROUTING_GATEWAY
-              </span>
-            </div>
-            <div className="flex gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/40"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500/20 border border-amber-500/40"></span>
-              <span className="w-2.5 h-2.5 rounded-full bg-primary/20 border border-primary/40"></span>
-            </div>
-          </div>
-
-          <div className="min-h-[160px] bg-[#03060a] border border-border/40 rounded p-4 text-[11px] leading-relaxed text-slate-400 space-y-1 mb-6">
-            {logs.map((log, idx) => (
-              <div key={idx} className="flex gap-2">
-                <span className="text-slate-600 font-bold select-none">
-                  [LOG_{idx}]
-                </span>
-                <span
-                  className={
-                    idx === logs.length - 1 && !bootFinished
-                      ? "text-primary"
-                      : "text-slate-300"
-                  }
-                >
-                  {log}
-                </span>
-              </div>
-            ))}
-            {!bootFinished && (
-              <>
-                <div className="flex items-center gap-2 pt-1">
-                  <Loader2 className="w-3 h-3 text-primary animate-spin" />
-                  <span className="text-primary tracking-widest select-none">
-                    RESOLVING...
-                  </span>
-                </div>
-                <div className="pt-3">
-                  <button
-                    onClick={goToDocs}
-                    className="text-[10px] text-primary/70 hover:text-primary underline underline-offset-2 transition-colors uppercase tracking-wider"
-                  >
-                    [Skip to Docs]
-                  </button>
-                </div>
-              </>
-            )}
-            {bootFinished && (
-              <div className="text-primary font-bold pt-2 select-none">
-                ✓ HANDSHAKE RESOLVED. READY WHEN YOU ARE.
-              </div>
-            )}
-          </div>
-
-          <div className="bg-[#0c1420] border border-border/80 rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all duration-300 hover:border-primary/55">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-primary/10 border border-primary/20 rounded-md text-primary">
-                <BookOpen className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="text-sm font-bold text-white tracking-wide uppercase">
-                  TrusTrove GitBook
-                </h2>
-                <p className="text-[11px] text-slate-500 mt-1 max-w-[280px]">
-                  Protocol mechanics, economic modeling, smart contracts, and
-                  developer references.
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={goToDocs}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-primary hover:bg-primary/90 text-[#0d131a] text-xs font-bold uppercase rounded transition-colors cursor-pointer"
-            >
-              <span>Access Docs</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between text-[9px] text-slate-600 mt-6 pt-3 border-t border-border/40 select-none">
-            <span>SECURE GATEWAY ENFORCED</span>
-            <span>STATUS: ACTIVE</span>
+      <main id="main-content" className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+            ClearLedger guide
+          </p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
+            Understand the invoice finance workflow.
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+            ClearLedger coordinates SMEs, their trade buyers and liquidity providers around a shared invoice record. Start with the guide for your role, then review the protocol steps and testnet limitations before connecting a wallet. Profile metadata is public on-chain data; use test data only.
+          </p>
+          <div className="mt-7 inline-flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-sm text-amber-200">
+            <ShieldCheck className="h-4 w-4 shrink-0" />
+            Stellar Testnet preview · Experimental, not for real funds
           </div>
         </div>
+
+        <section aria-labelledby="participant-guides" className="mt-12">
+          <h2 id="participant-guides" className="text-lg font-semibold">
+            Choose your role
+          </h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {guides.map(({ href, icon: Icon, title, description, action }) => (
+              <article key={href} className="flex h-full flex-col rounded-xl border border-border bg-card p-5 sm:p-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <h3 className="mt-5 text-base font-semibold">{title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-6 text-muted-foreground">
+                  {description}
+                </p>
+                <Link href={href} className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                  {action} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
+          <div>
+            <h2 className="flex items-center gap-2 text-base font-semibold">
+              <BookOpen className="h-4 w-4 text-primary" /> How the protocol works
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              Participants register, invoices are assessed and listed, available pool liquidity may fund an eligible invoice, and the buyer confirms delivery and repays. Contract state records these actions on Stellar.
+            </p>
+          </div>
+          <div>
+            <h2 className="flex items-center gap-2 text-base font-semibold">
+              <CircleHelp className="h-4 w-4 text-primary" /> Questions and risks
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              Read common questions about wallets, invoice records, pool returns, defaults and withdrawal liquidity before taking part.
+            </p>
+            <Link href="/help" className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+              Read help and FAQs <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );

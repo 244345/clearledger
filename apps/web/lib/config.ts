@@ -46,7 +46,7 @@ export function validateConfig(): ConfigValidation {
 
   if (missing.length > 0) {
     console.warn(
-      `[TrusTrove] Missing required environment variables: ${missing.join(", ")}`,
+      `[ClearLedger] Missing required environment variables: ${missing.join(", ")}`,
     );
   }
 

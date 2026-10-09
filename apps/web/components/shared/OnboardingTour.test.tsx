@@ -47,7 +47,7 @@ describe("OnboardingTour", () => {
     renderTour();
     connectWallet();
 
-    expect(dialog()).toHaveAccessibleName("Welcome to TrusTrove");
+    expect(dialog()).toHaveAccessibleName("Welcome to ClearLedger");
     expect(dialog()).toHaveAttribute("aria-modal", "true");
     expect(screen.getByText(`Step 1 of ${TOTAL}`)).toBeInTheDocument();
     expect(localStorage.getItem(ONBOARDING_SEEN_KEY)).toBe("true");
@@ -82,7 +82,7 @@ describe("OnboardingTour", () => {
     expect(dialog()).toHaveAccessibleName("Pick your role");
 
     fireEvent.click(screen.getByRole("button", { name: "Back" }));
-    expect(dialog()).toHaveAccessibleName("Welcome to TrusTrove");
+    expect(dialog()).toHaveAccessibleName("Welcome to ClearLedger");
 
     for (let i = 1; i < TOTAL; i++) {
       fireEvent.click(screen.getByRole("button", { name: "Next" }));
@@ -110,14 +110,14 @@ describe("OnboardingTour", () => {
     fireEvent.keyDown(dialog(), { key: "ArrowRight" });
     expect(dialog()).toHaveAccessibleName("Pick your role");
     fireEvent.keyDown(dialog(), { key: "ArrowLeft" });
-    expect(dialog()).toHaveAccessibleName("Welcome to TrusTrove");
+    expect(dialog()).toHaveAccessibleName("Welcome to ClearLedger");
   });
 
   it("moves focus to each step's title", () => {
     renderTour();
     connectWallet();
     expect(
-      screen.getByRole("heading", { name: "Welcome to TrusTrove" }),
+      screen.getByRole("heading", { name: "Welcome to ClearLedger" }),
     ).toHaveFocus();
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
     expect(
@@ -156,7 +156,7 @@ describe("OnboardingTour", () => {
     localStorage.setItem(ONBOARDING_SEEN_KEY, "true");
     renderTour();
     act(() => useOnboardingStore.getState().start());
-    expect(dialog()).toHaveAccessibleName("Welcome to TrusTrove");
+    expect(dialog()).toHaveAccessibleName("Welcome to ClearLedger");
   });
 
   it("highlights a visible target and falls back to a centred card otherwise", () => {

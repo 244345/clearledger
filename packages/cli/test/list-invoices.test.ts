@@ -32,7 +32,7 @@ const { mockGetByStatus, mockGetByIssuer, mockInstances, MockInvoiceClient } =
     };
   });
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   InvoiceClient: MockInvoiceClient,
   // Minimal stand-in for the SDK's stroop formatter, so the mocked module does
   // not pull in the rest of the SDK graph.
@@ -45,7 +45,7 @@ import {
   parseInvoiceStatus,
   registerListInvoicesCommand,
 } from "../src/commands/list-invoices.js";
-import type { Invoice } from "@trusttrove/sdk";
+import type { Invoice } from "@clearledger/sdk";
 
 const ISSUER = "GACR43ILX6H4PGAOO5QKSZLU4ZJMGT3E66EAUDPLM5J6YTP4Y3PSHWGB";
 const BUYER = "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5";
@@ -78,7 +78,7 @@ const makeInvoice = (overrides: Partial<Invoice> = {}): Invoice => ({
 async function runCli(args: string[]) {
   const program = new Command();
   registerListInvoicesCommand(program);
-  await program.parseAsync(["node", "trusttrove", "list-invoices", ...args]);
+  await program.parseAsync(["node", "clearledger", "list-invoices", ...args]);
 }
 
 describe("list-invoices command", () => {
@@ -105,9 +105,9 @@ describe("list-invoices command", () => {
     originalExitCode = process.exitCode;
     process.exitCode = undefined;
 
-    originalPublicKey = process.env.TRUSTTROVE_PUBLIC_KEY;
+    originalPublicKey = process.env.CLEARLEDGER_PUBLIC_KEY;
     originalContractId = process.env.INVOICE_CONTRACT_ID;
-    delete process.env.TRUSTTROVE_PUBLIC_KEY;
+    delete process.env.CLEARLEDGER_PUBLIC_KEY;
     delete process.env.INVOICE_CONTRACT_ID;
   });
 
@@ -116,9 +116,9 @@ describe("list-invoices command", () => {
     process.exitCode = originalExitCode;
 
     if (originalPublicKey === undefined) {
-      delete process.env.TRUSTTROVE_PUBLIC_KEY;
+      delete process.env.CLEARLEDGER_PUBLIC_KEY;
     } else {
-      process.env.TRUSTTROVE_PUBLIC_KEY = originalPublicKey;
+      process.env.CLEARLEDGER_PUBLIC_KEY = originalPublicKey;
     }
     if (originalContractId === undefined) {
       delete process.env.INVOICE_CONTRACT_ID;
@@ -182,7 +182,7 @@ describe("list-invoices command", () => {
   });
 
   it("falls back to the public key and contract ID environment variables", async () => {
-    process.env.TRUSTTROVE_PUBLIC_KEY = PUBLIC_KEY;
+    process.env.CLEARLEDGER_PUBLIC_KEY = PUBLIC_KEY;
     process.env.INVOICE_CONTRACT_ID = CONTRACT_ID;
     mockGetByStatus.mockResolvedValue([makeInvoice()]);
 
@@ -254,7 +254,7 @@ describe("list-invoices command", () => {
   it("requires a public key", async () => {
     await runCli(["--status", "Funded", "--contract-id", CONTRACT_ID]);
 
-    expect(stderr()).toContain("TRUSTTROVE_PUBLIC_KEY");
+    expect(stderr()).toContain("CLEARLEDGER_PUBLIC_KEY");
     expect(process.exitCode).toBe(1);
   });
 

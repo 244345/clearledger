@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { AgentRegistryClient, Agent } from "@trusttrove/sdk";
+import { AgentRegistryClient, Agent } from "@clearledger/sdk";
 import { useAsyncQuery, AsyncQueryState } from "./async.js";
 
 export interface UseAgentRegistryOptions {

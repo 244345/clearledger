@@ -6,10 +6,10 @@ import (
 	"log/slog"
 	"time"
 
-	"trusttrove/indexer/api"
-	"trusttrove/indexer/config"
-	"trusttrove/indexer/db"
-	"trusttrove/indexer/soroban"
+	"clearledger/indexer/api"
+	"clearledger/indexer/config"
+	"clearledger/indexer/db"
+	"clearledger/indexer/soroban"
 
 	"github.com/stellar/go-stellar-sdk/keypair"
 )

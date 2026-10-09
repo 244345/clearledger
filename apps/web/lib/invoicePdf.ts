@@ -19,9 +19,9 @@ function formatDate(timestamp: number): string {
   }).format(new Date(timestamp * 1000));
 }
 
-/** Filename of the exported document, e.g. `trusttrove-invoice-a1b2c3d4.pdf`. */
+/** Filename of the exported document, e.g. `clearledger-invoice-a1b2c3d4.pdf`. */
 export function invoicePdfFileName(invoice: Invoice): string {
-  return `trusttrove-invoice-${invoice.id.slice(0, 8)}.pdf`;
+  return `clearledger-invoice-${invoice.id.slice(0, 8)}.pdf`;
 }
 
 export interface InvoicePdfField {
@@ -53,7 +53,7 @@ export interface InvoicePdfContent {
  */
 export function buildInvoicePdfContent(invoice: Invoice): InvoicePdfContent {
   return {
-    title: "TrusTrove Invoice",
+    title: "ClearLedger Invoice",
     fields: [
       { label: "Invoice ID", value: invoice.id },
       { label: "Status", value: invoice.status },

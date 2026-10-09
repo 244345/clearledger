@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { InvoiceForm } from "./InvoiceForm";
 import { renderWithProviders } from "@/test-utils/renderWithProviders";
 
-vi.mock("@trusttrove/sdk", () => ({
+vi.mock("@clearledger/sdk", () => ({
   InvoiceClient: vi.fn(function () {
     return { simulateTransaction: vi.fn().mockResolvedValue({}) };
   }),

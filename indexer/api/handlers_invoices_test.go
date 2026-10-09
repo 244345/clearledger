@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"trusttrove/indexer/db"
+	"clearledger/indexer/db"
 )
 
 // paginatedResponse mirrors the JSON envelope returned by HandleGetInvoices.

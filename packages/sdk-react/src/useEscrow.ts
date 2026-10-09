@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { EscrowClient } from "@trusttrove/sdk";
+import { EscrowClient } from "@clearledger/sdk";
 import {
   useAsyncQuery,
   useAsyncMutation,

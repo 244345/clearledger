@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { RegistryClient } from "@trusttrove/sdk";
+import { RegistryClient } from "@clearledger/sdk";
 import {
   useIsVerified,
   useProfile,
@@ -8,7 +8,7 @@ import {
   UseRegistryOptions,
 } from "../src/useRegistry.js";
 
-vi.mock("@trusttrove/sdk", () => {
+vi.mock("@clearledger/sdk", () => {
   class MockRegistryClient {
     contractId: string;
     constructor(contractId: string) {
