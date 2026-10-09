@@ -1,10 +1,14 @@
 # ClearLedger
 
-**Invoice finance infrastructure, built for Stellar.**
+**Invoice finance infrastructure, built on Stellar and powered by Soroban.**
 
-ClearLedger is an open-source project exploring how Stellar and Soroban can make invoice finance more transparent and programmable. It brings business onboarding, invoice state, liquidity pool accounting, and settlement coordination into one developer-ready stack: a web application, TypeScript SDK and CLI, Go indexer/API, and Soroban contracts.
+ClearLedger is an open-source invoice-finance platform built on Stellar. Its Soroban smart contracts coordinate participant verification, invoice lifecycle state, USDC liquidity pools, and settlement flows. The complete stack brings together on-chain contracts, a web application, TypeScript SDK and CLI, and a Go indexer/API.
 
-[Open the testnet app](https://clearledger-three.vercel.app) · [Read the docs](docs/README.md) · [Explore the contracts](https://github.com/Stellar-Clear/clearledger-contracts) · [View contract deployments](https://github.com/Stellar-Clear/clearledger-contracts#deployed-contracts-stellar-testnet)
+[Launch the Stellar Testnet app](https://clearledger-three.vercel.app) · [Explore the Soroban contracts](https://github.com/Stellar-Clear/clearledger-contracts) · [Read the documentation](docs/README.md) · [View Testnet contracts](https://github.com/Stellar-Clear/clearledger-contracts#testnet-deployments)
+
+## Built for Stellar
+
+ClearLedger uses [Soroban, Stellar’s smart-contract platform](https://developers.stellar.org/docs/build/smart-contracts/overview), to coordinate business identity, invoice records, pool shares, and USDC flows on Stellar. The TypeScript SDK and web app connect to Soroban contracts, while the Go indexer follows contract events to make network activity available to applications.
 
 ## The workflow
 
@@ -53,8 +57,8 @@ From the repository root, the main checks are `pnpm build`, `pnpm lint`, `pnpm t
 
 Start with the [local setup guide](docs/developer-guide/local-setup.md), [architecture overview](docs/ARCHITECTURE.md), and [contribution guide](docs/contributing/how-to-contribute.md). For protocol details, see [how it works](docs/introduction/how-it-works.md), the [invoice lifecycle](docs/protocol/invoice-lifecycle.md), and the [economic model](docs/protocol/economic-model.md).
 
-## Network and security status
+## Network and security
 
-ClearLedger is an experimental Stellar Testnet prototype, not a production financial service. The contracts have not been formally audited, and testnet assets have no promised redemption value. The current deployment is not suitable for real funds. Review the [contract limitations](https://github.com/Stellar-Clear/clearledger-contracts/blob/main/docs/LIMITATIONS.md) and [security policy](https://github.com/Stellar-Clear/clearledger-contracts/blob/main/SECURITY.md) before integrating.
+The web application and contracts are currently deployed on Stellar Testnet for evaluation and integration. This is not a mainnet financial service. The contracts have not been formally audited, and testnet assets have no promised redemption value. Do not use real funds. Review the [contract limitations](https://github.com/Stellar-Clear/clearledger-contracts/blob/main/docs/LIMITATIONS.md) and [security policy](https://github.com/Stellar-Clear/clearledger-contracts/blob/main/SECURITY.md) before integrating.
 
 Use testnet wallets and assets only. Never put private keys or recovery phrases in environment files or source control.
