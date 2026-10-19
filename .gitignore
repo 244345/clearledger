@@ -28,8 +28,6 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Local env files
-.env
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
@@ -39,7 +37,6 @@ pnpm-debug.log*
 
 # IDEs and OS files
 .idea/
-.vscode/
 *.suo
 *.ntvs*
 *.njsproj
@@ -48,3 +45,5 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 .neon
+.vercel
+config.bat
