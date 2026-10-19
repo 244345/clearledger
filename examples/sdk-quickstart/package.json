@@ -5,7 +5,7 @@
   "description": "Minimal runnable example for @clearledger/sdk against Stellar testnet",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts"
+    "start": "node init && tsx src/index.ts"
   },
   "dependencies": {
     "@clearledger/sdk": "workspace:*"
